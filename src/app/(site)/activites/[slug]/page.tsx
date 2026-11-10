@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
-import { getEvent } from "@/lib/queries";
-import { loadGallery } from "@/lib/gallery";
+import { getEvent, staticParams } from "@/lib/queries";
+import { splitPhotos } from "@/lib/gallery";
 import { absoluteUrl, pageMetadata, SITE_URL } from "@/lib/seo";
 import { EVENT_ROLES, EVENT_TYPES, labelOf } from "@/lib/taxonomy";
 import { formatDate } from "@/lib/format";
@@ -11,7 +11,8 @@ import { Gallery } from "@/components/site/Gallery";
 import { Video } from "@/components/site/Video";
 import { CtaBand } from "@/components/site/CtaBand";
 
-export const revalidate = 300;
+export const dynamicParams = false;
+export const generateStaticParams = async () => staticParams.events();
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const e = await getEvent((await params).slug);
@@ -22,7 +23,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 export default async function EventPage({ params }: { params: Promise<{ slug: string }> }) {
   const e = await getEvent((await params).slug);
   if (!e) notFound();
-  const { gallery } = await loadGallery("Event", e.id);
+  const { gallery } = splitPhotos(e.photos);
   const type = labelOf(EVENT_TYPES, e.type);
   return (
     <>

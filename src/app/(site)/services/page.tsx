@@ -5,8 +5,6 @@ import { Arrow, JsonLd, PageHero } from "@/components/site/ui";
 import { MediaFrame } from "@/components/site/MediaFrame";
 import { CtaBand } from "@/components/site/CtaBand";
 
-export const revalidate = 300;
-
 export async function generateMetadata() {
   return pageMetadata({
     path: "/services",

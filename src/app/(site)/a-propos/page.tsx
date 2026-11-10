@@ -4,8 +4,6 @@ import { pageMetadata } from "@/lib/seo";
 import { Arrow, PageHero, SectionHead } from "@/components/site/ui";
 import { CtaBand } from "@/components/site/CtaBand";
 
-export const revalidate = 300;
-
 export async function generateMetadata() {
   return pageMetadata({
     path: "/a-propos",

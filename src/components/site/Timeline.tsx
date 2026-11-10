@@ -1,5 +1,5 @@
 import Link from "next/link";
-import type { Event } from "@prisma/client";
+import type { Event } from "@/content/types";
 import { EVENT_ROLES, EVENT_TYPES, labelOf } from "@/lib/taxonomy";
 import { formatDate } from "@/lib/format";
 import { MediaFrame } from "./MediaFrame";

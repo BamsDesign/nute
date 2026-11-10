@@ -1,20 +1,14 @@
-import "server-only";
-import { getGallery } from "./queries";
+import type { Photo } from "@/content/types";
 import type { GalleryImage } from "@/components/site/Gallery";
 
-export async function loadGallery(ownerType: "Project" | "Intervention" | "Event", ownerId: string) {
-  const items = await getGallery(ownerType, ownerId);
-  const toImg = (g: (typeof items)[number]): GalleryImage => ({
-    id: g.id,
-    url: g.media.url,
-    thumbUrl: g.media.thumbUrl,
-    alt: g.media.alt || g.caption || "",
-    caption: g.caption,
-    isVideo: g.media.mimeType.startsWith("video/"),
-  });
+const isVideo = (src: string) => /\.(mp4|webm)$/i.test(src);
+
+/** Sépare les photos d'un contenu en galerie, « avant » et « après ». */
+export function splitPhotos(photos: Photo[]) {
+  const toImg = (p: Photo, i: number): GalleryImage => ({ id: `${i}-${p.src}`, url: p.src, thumbUrl: null, alt: p.alt, caption: p.caption ?? null, isVideo: isVideo(p.src) });
   return {
-    gallery: items.filter((g) => g.kind === "GALLERY").map(toImg),
-    before: items.filter((g) => g.kind === "BEFORE").map(toImg),
-    after: items.filter((g) => g.kind === "AFTER").map(toImg),
+    gallery: photos.map(toImg).filter((_, i) => !photos[i].kind),
+    before: photos.map(toImg).filter((_, i) => photos[i].kind === "BEFORE"),
+    after: photos.map(toImg).filter((_, i) => photos[i].kind === "AFTER"),
   };
 }

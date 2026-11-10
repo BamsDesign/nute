@@ -9,8 +9,6 @@ import { MediaFrame } from "@/components/site/MediaFrame";
 import { EventCard, ProjectCard, TeamCard } from "@/components/site/cards";
 import { CtaBand } from "@/components/site/CtaBand";
 
-export const revalidate = 300;
-
 export async function generateMetadata(): Promise<Metadata> {
   const c = await getCompany();
   return pageMetadata({
@@ -283,7 +281,7 @@ export default async function HomePage() {
             <SectionHead index="07" label="Témoignages" title={<span id="testimonials-title">Ils nous ont fait confiance.</span>} />
             <div className="cards" style={{ "--cols": Math.min(testimonials.length, 3) } as React.CSSProperties}>
               {testimonials.slice(0, 3).map((tm) => (
-                <figure key={tm.id} className="card" style={{ margin: 0, borderTop: "1px solid var(--ink)", paddingTop: "1.5rem" }} data-reveal>
+                <figure key={tm.author + tm.quote.slice(0, 20)} className="card" style={{ margin: 0, borderTop: "1px solid var(--ink)", paddingTop: "1.5rem" }} data-reveal>
                   <blockquote className="quote" style={{ margin: 0, fontSize: "var(--fs-lg)" }}>
                     « {tm.quote} »
                   </blockquote>
@@ -309,7 +307,7 @@ export default async function HomePage() {
               {partners.map((p) => {
                 const inner = p.logoUrl ? <img src={p.logoUrl} alt={p.name} style={{ height: 44, width: "auto", filter: "grayscale(1)", opacity: 0.8 }} loading="lazy" /> : <span className="h4">{p.name}</span>;
                 return (
-                  <li key={p.id}>
+                  <li key={p.name}>
                     {p.websiteUrl ? (
                       <a href={p.websiteUrl} target="_blank" rel="noopener noreferrer">
                         {inner}

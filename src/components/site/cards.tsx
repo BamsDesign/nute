@@ -1,5 +1,5 @@
 import Link from "next/link";
-import type { Article, Event, Project, TeamMember } from "@prisma/client";
+import type { Article, Event, Project, TeamMember } from "@/content/types";
 import { MediaFrame } from "./MediaFrame";
 import { DemoBadge } from "./ui";
 import { ARTICLE_CATEGORIES, EVENT_ROLES, EVENT_TYPES, PROJECT_CATEGORIES, labelOf } from "@/lib/taxonomy";

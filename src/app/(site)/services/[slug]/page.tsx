@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { db } from "@/lib/db";
-import { getProjects, getService } from "@/lib/queries";
+import { getProjects, getService, staticParams } from "@/lib/queries";
 import { absoluteUrl, pageMetadata, SITE_URL } from "@/lib/seo";
 import { getCompany, whatsappLink } from "@/lib/settings";
 import { Arrow, Facts, JsonLd, PageHero } from "@/components/site/ui";
@@ -9,16 +8,8 @@ import { MediaFrame } from "@/components/site/MediaFrame";
 import { ProjectCard } from "@/components/site/cards";
 import { CtaBand } from "@/components/site/CtaBand";
 
-export const revalidate = 300;
-
-export async function generateStaticParams() {
-  if (!process.env.DATABASE_URL) return [];
-  try {
-    return (await db.service.findMany({ where: { published: true }, select: { slug: true } })).map((s) => ({ slug: s.slug }));
-  } catch {
-    return [];
-  }
-}
+export const dynamicParams = false;
+export const generateStaticParams = async () => staticParams.services();
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const s = await getService((await params).slug);

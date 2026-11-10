@@ -1,14 +1,10 @@
-import Link from "next/link";
 import { getEvents } from "@/lib/queries";
 import { pageMetadata } from "@/lib/seo";
-import { EVENT_TYPES } from "@/lib/taxonomy";
 import { getDictionary } from "@/i18n";
-import { EmptyState, PageHero } from "@/components/site/ui";
+import { PageHero } from "@/components/site/ui";
 import { EventCard } from "@/components/site/cards";
-import { Timeline } from "@/components/site/Timeline";
+import { EventsBrowser } from "@/components/site/browsers";
 import { CtaBand } from "@/components/site/CtaBand";
-
-export const revalidate = 300;
 
 export async function generateMetadata() {
   return pageMetadata({
@@ -18,14 +14,11 @@ export async function generateMetadata() {
   });
 }
 
-export default async function EventsPage({ searchParams }: { searchParams: Promise<{ type?: string }> }) {
-  const { type } = await searchParams;
+export default async function EventsPage() {
   const [all, t] = await Promise.all([getEvents(), getDictionary()]);
   const now = new Date();
-  const active = EVENT_TYPES.some((x) => x.value === type) ? type : undefined;
   const upcoming = all.filter((e) => e.date >= now).reverse();
-  const past = all.filter((e) => e.date < now && (!active || e.type === active));
-  const presentTypes = EVENT_TYPES.filter((x) => all.some((e) => e.type === x.value));
+  const past = all.filter((e) => e.date < now);
 
   return (
     <>
@@ -54,19 +47,7 @@ export default async function EventsPage({ searchParams }: { searchParams: Promi
           <h2 id="chronologie" className="eyebrow" style={{ marginBottom: "2.5rem" }}>
             Chronologie
           </h2>
-          {presentTypes.length > 1 && (
-            <nav className="filters" aria-label="Filtrer par type d'activité">
-              <Link href="/activites" className="filter" aria-current={!active ? "true" : undefined} scroll={false}>
-                Toutes
-              </Link>
-              {presentTypes.map((x) => (
-                <Link key={x.value} href={`/activites?type=${x.value}`} className="filter" aria-current={active === x.value ? "true" : undefined} scroll={false}>
-                  {x.label}
-                </Link>
-              ))}
-            </nav>
-          )}
-          {past.length ? <Timeline events={past} /> : <EmptyState text={t("empty.events")} />}
+          <EventsBrowser events={past} emptyText={t("empty.events")} />
         </div>
       </section>
       <CtaBand />

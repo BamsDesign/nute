@@ -1,8 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { db } from "@/lib/db";
-import { getProject, getProjects } from "@/lib/queries";
-import { loadGallery } from "@/lib/gallery";
+import { getProject, getProjects, staticParams } from "@/lib/queries";
+import { splitPhotos } from "@/lib/gallery";
 import { absoluteUrl, pageMetadata, SITE_URL } from "@/lib/seo";
 import { PROJECT_CATEGORIES, labelOf } from "@/lib/taxonomy";
 import { formatDate } from "@/lib/format";
@@ -13,16 +12,8 @@ import { Video } from "@/components/site/Video";
 import { ProjectCard } from "@/components/site/cards";
 import { CtaBand } from "@/components/site/CtaBand";
 
-export const revalidate = 300;
-
-export async function generateStaticParams() {
-  if (!process.env.DATABASE_URL) return [];
-  try {
-    return (await db.project.findMany({ where: { published: true }, select: { slug: true } })).map((p) => ({ slug: p.slug }));
-  } catch {
-    return [];
-  }
-}
+export const dynamicParams = false;
+export const generateStaticParams = async () => staticParams.projects();
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const p = await getProject((await params).slug);
@@ -42,7 +33,8 @@ function Block({ title, children }: { title: string; children: React.ReactNode }
 export default async function ProjectPage({ params }: { params: Promise<{ slug: string }> }) {
   const p = await getProject((await params).slug);
   if (!p) notFound();
-  const [{ gallery, before, after }, others] = await Promise.all([loadGallery("Project", p.id), getProjects()]);
+  const { gallery, before, after } = splitPhotos(p.photos);
+  const others = await getProjects();
   const cat = labelOf(PROJECT_CATEGORIES, p.category);
   const more = others.filter((o) => o.id !== p.id && o.category === p.category).slice(0, 3);
 
@@ -74,7 +66,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
                 ["Client", p.client && p.clientAuthorized ? p.client : null],
                 ["Lieu", p.location],
                 ["Date", p.date ? formatDate(p.date) : null],
-                ["Intervention", p.intervention?.published ? <Link key="i" className="text-link" href={`/interventions/${p.intervention.slug}`}>{p.intervention.name}</Link> : null],
+                ["Intervention", p.intervention ? <Link key="i" className="text-link" href={`/interventions/${p.intervention.slug}`}>{p.intervention.name}</Link> : null],
               ]}
             />
             {p.technologies.length > 0 && (
