@@ -1,0 +1,94 @@
+{
+  "sectionTitle": "Notre équipe",
+  "intro": "NUTE s'appuie sur une équipe pluridisciplinaire qui réunit des expertises en informatique, bases de données, gestion IT, électronique et réseaux informatiques.",
+  "members": [
+    {
+      "id": "barthelemy-andji-michael",
+      "active": true,
+      "name": "Barthélemy Andji-Michaël",
+      "position": "Ingénieur en Informatique",
+      "mainExpertise": "Bases de données et optimisation des systèmes",
+      "institution": "Université Infotronique d’Haïti (ESIH)",
+      "photo": "assets/img/team/barthelemy-andji-michael.jpg",
+      "bio": "Formé à l’Université Infotronique d’Haïti, Barthélemy Andji-Michaël est un ingénieur en informatique passionné par les bases de données et l’optimisation des systèmes. Rigoureux et motivé, il met son expertise au service de NUTE pour concevoir, développer et optimiser des solutions numériques fiables et performantes.",
+      "listLabel": "Domaines d’expertise",
+      "expertise": [
+        "Conception et gestion de bases de données.",
+        "Optimisation des systèmes informatiques.",
+        "Développement de solutions numériques.",
+        "Analyse et structuration des données."
+      ],
+      "links": []
+    },
+    {
+      "id": "severe-leonne",
+      "active": true,
+      "name": "Sévère Leonne",
+      "position": "IT Manager",
+      "mainExpertise": "",
+      "institution": "Haïti Tech",
+      "photo": "assets/img/team/severe-leonne.jpg",
+      "bio": "Formée à Haïti Tech, Sévère Leonne est IT Manager au sein de NUTE. Elle veille au bon fonctionnement des systèmes et à la performance technologique de l’entreprise. Organisée, proactive et orientée solutions, elle assure la gestion efficace des infrastructures informatiques et accompagne l’équipe dans chaque défi numérique.",
+      "listLabel": "Domaines de responsabilité",
+      "expertise": [
+        "Gestion des infrastructures informatiques.",
+        "Supervision des systèmes.",
+        "Coordination des activités informatiques.",
+        "Suivi des performances technologiques.",
+        "Accompagnement technique de l'équipe."
+      ],
+      "links": []
+    },
+    {
+      "id": "barthelemy-nathanael",
+      "active": true,
+      "name": "Barthélemy Nathanaël",
+      "position": "Spécialiste en Génie Électronique",
+      "mainExpertise": "",
+      "institution": "Université Lumière",
+      "photo": "assets/img/team/barthelemy-nathanael.jpg",
+      "bio": "Formé à l’Université Lumière, Barthélemy Nathanaël est spécialiste en génie électronique. Passionné par les systèmes électriques et les technologies embarquées, il apporte précision, expertise et innovation au sein de NUTE.",
+      "listLabel": "Domaines d’expertise",
+      "expertise": [
+        "Génie électronique.",
+        "Systèmes électriques.",
+        "Technologies embarquées.",
+        "Analyse et diagnostic électronique.",
+        "Solutions techniques et électroniques."
+      ],
+      "links": []
+    },
+    {
+      "id": "barthelemy-antho-romelson",
+      "active": true,
+      "name": "Barthélemy Antho Romelson",
+      "position": "Ingénieur en Informatique et Réseaux",
+      "mainExpertise": "",
+      "institution": "Haïti Tech",
+      "photo": "assets/img/team/barthelemy-antho-romelson.jpg",
+      "bio": "Diplômé de Haïti Tech, Barthélemy Antho Romelson est un professionnel de l’informatique et des réseaux. Fiable, méthodique et orienté performance, il contribue à assurer la stabilité, la sécurité et l’optimisation des infrastructures réseau de NUTE.",
+      "listLabel": "Domaines d’expertise",
+      "expertise": [
+        "Administration des réseaux informatiques.",
+        "Installation et configuration réseau.",
+        "Maintenance des infrastructures réseau.",
+        "Sécurité des réseaux.",
+        "Optimisation des performances réseau."
+      ],
+      "links": []
+    },
+    {
+      "id": "wilguens-ceus",
+      "active": false,
+      "name": "Wilguens Ceus",
+      "position": "",
+      "mainExpertise": "",
+      "institution": "",
+      "photo": "",
+      "bio": "",
+      "listLabel": "Domaines d’expertise",
+      "expertise": [],
+      "links": []
+    }
+  ]
+}

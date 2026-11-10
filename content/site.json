@@ -1,0 +1,19 @@
+{
+  "contactEmail": "nuteservices@gmail.com",
+  "contactPhone": "",
+  "address": "",
+  "social": [
+    {
+      "network": "Instagram",
+      "url": "https://www.instagram.com/nuteservices/"
+    },
+    {
+      "network": "TikTok",
+      "url": "https://www.tiktok.com/@nuteservices"
+    },
+    {
+      "network": "X",
+      "url": "https://x.com/NuteS9849"
+    }
+  ]
+}

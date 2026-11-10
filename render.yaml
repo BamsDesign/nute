@@ -1,19 +1,31 @@
-# Blueprint Render — site vitrine NUTE, 100 % statique (aucun serveur, aucune base de données).
-# Render → New → Blueprint → dépôt BamsDesign/nute → Apply.
+# Blueprint Render — site vitrine NUTE : HTML/CSS/JS statique, aucune étape de build.
+# Render → New → Blueprint → dépôt BamsDesign/nute → Apply. Chaque push sur `main` republie le site.
+# L'ancienne version Next.js est conservée dans la branche `version-nextjs`.
 services:
   - type: web
     runtime: static
     name: nute
     branch: main
-    buildCommand: npm ci && npm run build
-    staticPublishPath: out
+    buildCommand: echo "Site statique — pas de build"
+    staticPublishPath: .
     pullRequestPreviewsEnabled: false
-    envVars:
-      - key: NODE_VERSION
-        value: "22"
-      # Adresse publique du site (sans barre finale) : à modifier si vous utilisez un nom de domaine.
-      - key: SITE_URL
-        value: https://nute.onrender.com
+    routes:
+      # Anciennes adresses du site Next.js → nouvelles pages
+      - { type: redirect, source: /equipe, destination: /equipe.html }
+      - { type: redirect, source: /equipe/*, destination: /equipe.html }
+      - { type: redirect, source: /services, destination: /#services }
+      - { type: redirect, source: /services/*, destination: /#services }
+      - { type: redirect, source: /realisations, destination: /#realisations }
+      - { type: redirect, source: /realisations/*, destination: /#realisations }
+      - { type: redirect, source: /interventions, destination: /#lieux }
+      - { type: redirect, source: /interventions/*, destination: /#lieux }
+      - { type: redirect, source: /activites, destination: /#evenements }
+      - { type: redirect, source: /activites/*, destination: /#evenements }
+      - { type: redirect, source: /formations, destination: /#formation }
+      - { type: redirect, source: /a-propos, destination: /#mission }
+      - { type: redirect, source: /contact, destination: /#contact }
+      - { type: redirect, source: /actualites, destination: / }
+      - { type: redirect, source: /actualites/*, destination: / }
     headers:
       - path: /*
         name: X-Content-Type-Options
@@ -30,9 +42,13 @@ services:
       - path: /*
         name: Strict-Transport-Security
         value: max-age=63072000; includeSubDomains
+      # CSP : Google Fonts, photos hébergées sur Higgsfield (CDN), panneau /admin (Decap CMS via unpkg + API GitHub)
       - path: /*
         name: Content-Security-Policy
-        value: "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; media-src 'self'; connect-src 'self'; frame-src https://www.youtube-nocookie.com https://player.vimeo.com https://www.google.com; frame-ancestors 'none'; form-action 'self' mailto:; base-uri 'self'; object-src 'none'; upgrade-insecure-requests"
-      - path: /_next/static/*
+        value: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://unpkg.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://unpkg.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https://d8j0ntlcm91z4.cloudfront.net https://d2ol7oe51mr4n9.cloudfront.net https://avatars.githubusercontent.com https://raw.githubusercontent.com; connect-src 'self' https://api.github.com https://unpkg.com; frame-ancestors 'none'; form-action 'self' mailto:; base-uri 'self'; object-src 'none'; upgrade-insecure-requests"
+      - path: /assets/vendor/*
         name: Cache-Control
         value: public, max-age=31536000, immutable
+      - path: /content/*
+        name: Cache-Control
+        value: no-cache

@@ -1,10 +1,4 @@
-node_modules/
-.next/
-out/
-.env
-.env.*.local
-storage/
-*.tsbuildinfo
-next-env.d.ts
 .DS_Store
-npm-debug.log*
+node_modules/
+__pycache__/
+*.pyc

@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NUTE — Informatique, réseaux, électronique et formation</title>
+<meta name="description" content="NUTE : six domaines d'expertise complémentaires pour répondre aux besoins des particuliers, des entreprises et des institutions.">
+<meta name="theme-color" content="#FFFFFF">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+<script>document.documentElement.classList.add('js')</script>
+<script type="importmap">{ "imports": { "three": "./assets/vendor/three.module.min.js" } }</script>
+</head>
+<body data-page="home">
+
+<!-- ================= HEADER ================= -->
+<header class="site-header">
+  <a class="brand" href="index.html" aria-label="NUTE — accueil">
+    <svg viewBox="0 0 318 384" aria-hidden="true"><path d="M31.5311 13.1274C123.035 51.2235 277.588 168.262 317.534 383.1H270.641C238.69 211.264 127.809 113.766 45.5535 70.1285V383.398H0V0L31.5311 13.1274Z"/><path d="M312.477 0.0625H87.9844C141.428 36.5847 284.49 136.336 312.477 243.163V0.0625Z" fill="#F75006"/></svg>
+    NUTE
+  </a>
+  <nav class="nav-pill" aria-label="Navigation principale">
+    <button class="nav-pill__menu" type="button" aria-expanded="false" aria-controls="menu"><span class="bars" aria-hidden="true"><i></i><i></i></span><span class="lbl">Menu</span></button>
+    <a class="nav-pill__link" href="#services">Découvrir nos solutions</a>
+  </nav>
+  <a class="cta-pill" href="#contact"><span class="ico"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 10 10 2M4 2h6v6"/></svg></span><span class="lbl">Nous contacter</span></a>
+</header>
+
+<div class="menu" id="menu" aria-hidden="true">
+  <ul class="menu__list">
+    <li><a href="index.html#top"><span>Accueil</span></a></li>
+    <li><a href="index.html#services"><span>Services</span></a></li>
+    <li><a href="index.html#realisations"><span>Réalisations</span></a></li>
+    <li><a href="index.html#projet-phare"><span>Projet phare</span></a></li>
+    <li><a href="index.html#evenements"><span>Événements</span></a></li>
+    <li><a href="equipe.html"><span>Notre équipe</span></a></li>
+    <li><a href="index.html#formation"><span>Formation</span></a></li>
+    <li><a href="index.html#contact"><span>Contact</span></a></li>
+  </ul>
+  <div class="menu__foot"><span>NUTE</span><span class="social" data-social></span></div>
+</div>
+
+<!-- ================= 3D NUTE LOGO (fixed WebGL stage) ================= -->
+<div class="stage" id="stage" aria-hidden="true">
+  <img class="stage__fallback" src="assets/img/nute-logo-3d.png" alt="">
+</div>
+
+<main id="top">
+  <!-- HERO 1 — wordmark + 3D logo + three glass cards -->
+  <section class="hero1" aria-label="NUTE">
+    <h1 class="hero1__word" aria-label="NUTE"><span class="ch">N</span><span class="ch">U</span><span class="ch">T</span><span class="ch">E</span></h1>
+
+    <div class="hero1__cards">
+      <a class="glass gcard" href="#services">
+        <span class="tag">Informatique</span>
+        <svg class="gcard__sym" viewBox="0 0 30 30" aria-hidden="true"><path d="M12 0h6v12h12v6H18v12h-6V18H0v-6h12z"/></svg>
+        <span class="gcard__title">Informatique et maintenance</span>
+      </a>
+      <a class="glass gcard" href="#services">
+        <span class="tag">Réseaux</span>
+        <svg class="gcard__sym" viewBox="0 0 30 30" aria-hidden="true"><path fill-rule="evenodd" d="M15 0a15 15 0 1 1 0 30 15 15 0 0 1 0-30Zm0 7a8 8 0 1 0 0 16 8 8 0 0 0 0-16Z"/></svg>
+        <span class="gcard__title">Installation et infrastructure</span>
+      </a>
+      <a class="glass gcard" href="#formation">
+        <span class="tag">Formation</span>
+        <svg class="gcard__sym" viewBox="0 0 30 30" aria-hidden="true"><path d="M0 4 4 0l11 11L26 0l4 4-11 11 11 11-4 4-11-11L4 30l-4-4 11-11z"/></svg>
+        <span class="gcard__title">Formation et accompagnement</span>
+      </a>
+    </div>
+    <a class="hero1__scroll link-arrow" href="#projet"><span class="dot"></span>Défiler</a>
+  </section>
+
+  <!-- HERO 2 — tag / big heading / icon tile / statement / pager / visual -->
+  <section class="hero2" id="projet" aria-roledescription="carrousel" aria-label="Projet NUTE">
+    <div class="hero2__left">
+      <span class="tag tag--orange">Projet NUTE</span>
+      <h2 class="hero2__title" aria-live="polite"></h2>
+      <div class="hero2__more">
+        <span class="icon-tile" aria-hidden="true"><svg viewBox="0 0 318 384"><path d="M31.5311 13.1274C123.035 51.2235 277.588 168.262 317.534 383.1H270.641C238.69 211.264 127.809 113.766 45.5535 70.1285V383.398H0V0L31.5311 13.1274Z"/><path d="M312.477 0.0625H87.9844C141.428 36.5847 284.49 136.336 312.477 243.163V0.0625Z" fill="#F75006"/></svg></span>
+        <a class="link-arrow" href="#mission" id="h2more"><span class="dot"></span>En savoir plus</a>
+      </div>
+    </div>
+    <p class="hero2__statement"></p>
+    <div class="hero2__pager" role="tablist" aria-label="Diapositives"></div>
+    <div class="hero2__visual glass">
+      <div class="row"><span class="eyebrow">NUTE</span><span class="index" id="h2count">01 / 03</span></div>
+      <ul id="h2list"></ul>
+    </div>
+  </section>
+
+  <!-- MISSION -->
+  <section class="section" id="mission">
+    <div class="section__head">
+      <div class="section__tabs"><span class="tag tag--dark">Mission</span><a class="tag" href="equipe.html">Notre équipe</a></div>
+      <span class="index">01</span>
+    </div>
+    <p class="mission__text" data-words>NUTE est portée par une équipe pluridisciplinaire qui réunit l’informatique, les bases de données, la gestion IT, l’électronique et les réseaux informatiques, de l’atelier au terrain.</p>
+    <div class="mission__foot">
+      <span class="mission__thumb" aria-hidden="true"><svg viewBox="0 0 318 384"><path fill="#fff" d="M31.5311 13.1274C123.035 51.2235 277.588 168.262 317.534 383.1H270.641C238.69 211.264 127.809 113.766 45.5535 70.1285V383.398H0V0L31.5311 13.1274Z"/><path d="M312.477 0.0625H87.9844C141.428 36.5847 284.49 136.336 312.477 243.163V0.0625Z" fill="#F75006"/></svg></span>
+      <p class="mission__note" data-reveal>Six domaines d'expertise complémentaires pour répondre aux besoins des particuliers, des entreprises et des institutions.</p>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="section" id="services">
+    <div class="section__head">
+      <div class="section__tabs"><span class="tag tag--dark">Services</span></div>
+      <span class="index">02</span>
+    </div>
+    <div class="services__intro">
+      <h2 class="h-xl" data-reveal>Nos domaines<br>d'expertise</h2>
+      <p data-reveal>Six domaines d'expertise complémentaires pour répondre aux besoins des particuliers, des entreprises et des institutions.</p>
+    </div>
+    <ul class="srv">
+      <li class="srv__row" data-reveal><span class="index">01 / 06</span><span class="srv__name">Informatique et maintenance</span><span class="srv__sub">Réparation d'ordinateurs — remise en état des ordinateurs portables et de bureau : composants, écrans, alimentation, stockage.</span></li>
+      <li class="srv__row" data-reveal><span class="index">02 / 06</span><span class="srv__name">Installation et infrastructure</span><span class="srv__sub"></span></li>
+      <li class="srv__row" data-reveal><span class="index">03 / 06</span><span class="srv__name">Développement et solutions numériques</span><span class="srv__sub"></span></li>
+      <li class="srv__row" data-reveal><span class="index">04 / 06</span><span class="srv__name">Achat, vente et accessoires</span><span class="srv__sub"></span></li>
+      <li class="srv__row" data-reveal><span class="index">05 / 06</span><span class="srv__name">Multimédia</span><span class="srv__sub"></span></li>
+      <li class="srv__row" data-reveal><span class="index">06 / 06</span><span class="srv__name">Formation et accompagnement</span><span class="srv__sub"></span></li>
+    </ul>
+  </section>
+
+  <!-- ACCESSOIRES -->
+  <section class="section" id="accessoires">
+    <div class="section__head">
+      <div class="section__tabs"><span class="tag tag--dark">Accessoires</span></div>
+      <span class="index">03</span>
+    </div>
+    <div class="services__intro">
+      <h2 class="h-xl" data-reveal>Achat, vente<br>et accessoires</h2>
+      <p data-reveal data-acc-intro></p>
+    </div>
+    <div class="acc-grid" id="accGrid"></div>
+  </section>
+
+  <!-- RÉALISATIONS -->
+  <section class="section" id="realisations">
+    <div class="section__head">
+      <div class="section__tabs"><span class="tag tag--dark">Réalisations</span></div>
+      <span class="index">04</span>
+    </div>
+    <h2 class="h-xl" data-reveal style="margin-bottom:40px">Nos réalisations</h2>
+    <div class="filters" id="realFilters" role="tablist" aria-label="Filtrer les réalisations"></div>
+    <div class="real-grid" id="realGrid" aria-live="polite"></div>
+  </section>
+
+  <!-- PROJET PHARE -->
+  <section class="section" id="projet-phare">
+    <div class="section__head">
+      <div class="section__tabs"><span class="tag tag--dark">Projet phare</span></div>
+      <span class="index">05</span>
+    </div>
+    <div id="flagship"></div>
+  </section>
+
+  <!-- ÉVÉNEMENTS -->
+  <section class="section" id="evenements">
+    <div class="section__head">
+      <div class="section__tabs"><span class="tag tag--dark">Événements</span></div>
+      <span class="index">06</span>
+    </div>
+    <h2 class="h-xl" data-reveal style="margin-bottom:48px">Événements</h2>
+    <div class="events" id="eventsList"></div>
+  </section>
+
+  <!-- LIEUX D'INTERVENTION -->
+  <section class="section" id="lieux">
+    <div class="section__head">
+      <div class="section__tabs"><span class="tag tag--dark">Lieux d’intervention</span></div>
+      <span class="index">07</span>
+    </div>
+    <div class="places">
+      <div>
+        <h2 class="h-xl" data-reveal>Où nous<br>intervenons</h2>
+        <ul class="places__list" id="placesList"></ul>
+      </div>
+      <div class="places__map glass" id="placesMap" aria-hidden="true"></div>
+    </div>
+  </section>
+
+  <!-- TEAM TEASER -->
+  <section class="section" id="equipe">
+    <div class="section__head">
+      <div class="section__tabs"><span class="tag tag--dark">Notre équipe</span></div>
+      <a class="link-arrow" href="equipe.html"><span class="dot"></span>Voir toute l'équipe</a>
+    </div>
+    <div class="services__intro">
+      <h2 class="h-xl" data-reveal>Les personnes<br>derrière NUTE</h2>
+      <p data-reveal data-team-intro></p>
+    </div>
+    <div class="team-strip" id="teamStrip"></div>
+  </section>
+
+  <!-- FORMATION -->
+  <section class="section" id="formation">
+    <div class="section__head">
+      <div class="section__tabs"><span class="tag tag--dark" data-formation-tag>Formation</span></div>
+      <span class="index">09</span>
+    </div>
+    <div class="formation">
+      <h2 class="h-xl" data-reveal data-formation-title>Formation</h2>
+      <div data-reveal id="formationBody"></div>
+    </div>
+  </section>
+</main>
+
+<!-- ================= FOOTER / CONTACT ================= -->
+<footer class="footer" id="contact">
+  <div class="footer__top">
+    <div style="display:grid;gap:24px">
+      <span class="tag tag--orange">Contact</span>
+      <p class="footer__lead">Un projet informatique, réseau, électronique ou de formation&nbsp;? Parlons-en.</p>
+      <a class="btn" href="#contact" id="contactBtn">Nous contacter <span class="ico"><svg viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="1.6"><path d="M2 10 10 2M4 2h6v6"/></svg></span></a>
+    </div>
+    <div class="contact-list" id="contactList"></div>
+  </div>
+  <div class="footer__word" aria-hidden="true">NUTE<span>.</span></div>
+  <div class="footer__bar"><span>© <span data-year></span> NUTE</span><span class="social" data-social></span><span><a class="u-line" href="equipe.html">Notre équipe</a> · <a class="u-line" href="#services">Services</a> · <a class="u-line" href="#formation">Formation</a></span></div>
+</footer>
+
+<script src="assets/vendor/gsap.min.js"></script>
+<script src="assets/vendor/ScrollTrigger.min.js"></script>
+<script src="assets/vendor/lenis.min.js"></script>
+<script type="module" src="assets/js/home.js"></script>
+</body>
+</html>

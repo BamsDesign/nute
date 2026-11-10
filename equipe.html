@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Notre équipe — NUTE</title>
+<meta name="description" content="Notre équipe : les personnes derrière NUTE, une équipe pluridisciplinaire en informatique, bases de données, gestion IT, électronique et réseaux.">
+<meta name="theme-color" content="#FFFFFF">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+<script>document.documentElement.classList.add('js')</script>
+<script type="importmap">{ "imports": { "three": "./assets/vendor/three.module.min.js" } }</script>
+</head>
+<body data-page="team">
+
+<!-- ================= HEADER ================= -->
+<header class="site-header">
+  <a class="brand" href="index.html" aria-label="NUTE — accueil">
+    <svg viewBox="0 0 318 384" aria-hidden="true"><path d="M31.5311 13.1274C123.035 51.2235 277.588 168.262 317.534 383.1H270.641C238.69 211.264 127.809 113.766 45.5535 70.1285V383.398H0V0L31.5311 13.1274Z"/><path d="M312.477 0.0625H87.9844C141.428 36.5847 284.49 136.336 312.477 243.163V0.0625Z" fill="#F75006"/></svg>
+    NUTE
+  </a>
+  <nav class="nav-pill" aria-label="Navigation principale">
+    <button class="nav-pill__menu" type="button" aria-expanded="false" aria-controls="menu"><span class="bars" aria-hidden="true"><i></i><i></i></span><span class="lbl">Menu</span></button>
+    <a class="nav-pill__link" href="index.html#services">Découvrir nos solutions</a>
+  </nav>
+  <a class="cta-pill" href="#contact"><span class="ico"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 10 10 2M4 2h6v6"/></svg></span><span class="lbl">Nous contacter</span></a>
+</header>
+
+<div class="menu" id="menu" aria-hidden="true">
+  <ul class="menu__list">
+    <li><a href="index.html#top"><span>Accueil</span></a></li>
+    <li><a href="index.html#services"><span>Services</span></a></li>
+    <li><a href="index.html#realisations"><span>Réalisations</span></a></li>
+    <li><a href="index.html#projet-phare"><span>Projet phare</span></a></li>
+    <li><a href="index.html#evenements"><span>Événements</span></a></li>
+    <li><a href="equipe.html"><span>Notre équipe</span></a></li>
+    <li><a href="index.html#formation"><span>Formation</span></a></li>
+    <li><a href="index.html#contact"><span>Contact</span></a></li>
+  </ul>
+  <div class="menu__foot"><span>NUTE</span><span class="social" data-social></span></div>
+</div>
+
+<div class="stage" id="stage" aria-hidden="true">
+  <img class="stage__fallback" src="assets/img/nute-logo-3d.png" alt="">
+</div>
+<main>
+  <section class="team-hero" aria-labelledby="teamTitle">
+    <span class="tag tag--orange" style="justify-self:start;position:relative;z-index:3">Notre équipe</span>
+    <h1 class="team-hero__title" id="teamTitle"><span class="line"><span>Une équipe</span></span><span class="line"><span>pluri&shy;disciplinaire</span></span></h1>
+    <p class="team-hero__intro" data-team-intro></p>
+    <div class="team-hero__disc" aria-label="Disciplines">
+      <span class="tag">Informatique</span><span class="tag">Bases de données</span><span class="tag">Gestion IT</span><span class="tag">Électronique</span><span class="tag">Réseaux informatiques</span>
+    </div>
+  </section>
+
+  <section class="section" id="membres" aria-label="Membres de l'équipe">
+    <div class="section__head">
+      <div class="section__tabs"><span class="tag tag--dark">Membres</span><span class="tag" id="teamCount"></span></div>
+      <span class="eyebrow">Cliquez sur une photo pour afficher le rôle</span>
+    </div>
+    <div class="team-grid" id="teamGrid"></div>
+
+    <div class="team-claim" aria-label="Expertises réunies">
+      <div data-reveal><span class="index">01</span><strong>Informatique</strong></div>
+      <div data-reveal><span class="index">02</span><strong>Bases de données</strong></div>
+      <div data-reveal><span class="index">03</span><strong>Gestion IT</strong></div>
+      <div data-reveal><span class="index">04</span><strong>Électronique</strong></div>
+      <div data-reveal><span class="index">05</span><strong>Réseaux informatiques</strong></div>
+    </div>
+  </section>
+</main>
+
+<!-- ================= FOOTER / CONTACT ================= -->
+<footer class="footer" id="contact">
+  <div class="footer__top">
+    <div style="display:grid;gap:24px">
+      <span class="tag tag--orange">Contact</span>
+      <p class="footer__lead">Un projet informatique, réseau, électronique ou de formation&nbsp;? Parlons-en.</p>
+      <a class="btn" href="#contact" id="contactBtn">Nous contacter <span class="ico"><svg viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="1.6"><path d="M2 10 10 2M4 2h6v6"/></svg></span></a>
+    </div>
+    <div class="contact-list" id="contactList"></div>
+  </div>
+  <div class="footer__word" aria-hidden="true">NUTE<span>.</span></div>
+  <div class="footer__bar"><span>© <span data-year></span> NUTE</span><span class="social" data-social></span><span><a class="u-line" href="equipe.html">Notre équipe</a> · <a class="u-line" href="index.html#services">Services</a> · <a class="u-line" href="index.html#formation">Formation</a></span></div>
+</footer>
+
+<script src="assets/vendor/gsap.min.js"></script>
+<script src="assets/vendor/ScrollTrigger.min.js"></script>
+<script src="assets/vendor/lenis.min.js"></script>
+<script type="module" src="assets/js/team.js"></script>
+</body>
+</html>

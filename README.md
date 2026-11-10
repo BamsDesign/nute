@@ -1,129 +1,54 @@
-# NUTE — Site vitrine officiel
+# NUTE — site vitrine
 
-> **La technologie, votre mission, notre solution.**
-
-Site vitrine de **NUTE (NUTESERVICES)**, entreprise de services technologiques, informatiques et multimédias en Haïti.
-
-Le site est **100 % statique** : pas de serveur, pas de base de données, pas d'administration. Il est rapide, gratuit à héberger et ne « s'endort » jamais. Tout le contenu se trouve dans des fichiers du dossier [`src/content/`](src/content).
-
-> La version précédente avec administration (CMS) et base de données est conservée dans la branche `version-cms`.
-
----
+Static site (HTML / CSS / JS), no build step. 3D logo with Three.js, motion with GSAP + ScrollTrigger, smooth scroll with Lenis. All libraries are vendored in `assets/vendor/`, so nothing loads from a CDN except the Inter Tight font and the admin panel.
 
 ## Pages
-
-| Page | Adresse | Contenu |
-|---|---|---|
-| Accueil | `/` | Slogan, 6 domaines d'expertise, réalisations, activités, équipe, « Pourquoi NUTE », témoignages et partenaires (si présents) |
-| À propos | `/a-propos` | Présentation, signification de NUTE, histoire, mission, vision, valeurs, approche, engagement |
-| Services | `/services`, `/services/…` | 6 catégories, 29 services, chacun avec sa page |
-| Réalisations | `/realisations`, `/realisations/…` | Portfolio filtrable, étude de cas, photos avant/après, galerie, vidéo |
-| Interventions | `/interventions`, `/interventions/…` | Carte interactive d'Haïti et liste des lieux |
-| Activités | `/activites`, `/activites/…` | Événements à venir et chronologie |
-| Équipe | `/equipe`, `/equipe/…` | Profils professionnels |
-| Formations | `/formations` | Offre de formation, sessions à venir et réalisées |
-| Actualités | `/actualites`, `/actualites/…` | Articles |
-| Contact | `/contact` | Formulaire qui ouvre la messagerie (ou WhatsApp) avec le message déjà rédigé |
-
-Les sections sans contenu affichent un message « En préparation » sobre : **rien n'est inventé**. Seul le catalogue de services est pré-rempli.
-
----
-
-## Modifier le contenu
-
-Chaque fichier de `src/content/` contient un **exemple commenté** à copier. Après modification, envoyez les changements sur GitHub (branche `main`) : Render republie le site automatiquement en 1 à 2 minutes.
-
-| Fichier | Contenu |
+| File | Content |
 |---|---|
-| `entreprise.ts` | Coordonnées (téléphone, WhatsApp, adresse, horaires, réseaux sociaux, carte), logo, textes de l'accueil et de « À propos », chiffres clés |
-| `services.ts` | Catalogue des services |
-| `realisations.ts` | Projets réalisés |
-| `interventions.ts` | Lieux d'intervention (carte d'Haïti) |
-| `activites.ts` | Séminaires, formations, conférences, ateliers, visites… |
-| `equipe.ts` | Membres de l'équipe |
-| `actualites.ts` | Articles |
-| `temoignages.ts` | Témoignages (avec l'accord de leur auteur) |
-| `partenaires.ts` | Partenaires (avec autorisation) |
+| `index.html` | Hero 1, Hero 2 "Projet NUTE", Mission, Services, **Accessoires**, **Réalisations** (category filters + counters), **Projet phare (AyitiCommerce)**, **Événements**, **Lieux d'intervention** (map), team teaser, Formation, Contact + social links |
+| `equipe.html` | **Notre équipe**: 4 profiles. Click or tap a photo to show the role, name and institution in a glass panel. Click again, click outside or press Esc to close. The panel has a "Voir le profil" link |
+| `profil.html?id=<id>` | Full profile page: portrait, name, position, academic background, biography, expertise, links, previous/next member |
+| `admin/` | Admin panel (Decap CMS) |
 
-**Photos** : placez-les dans `public/images/<rubrique>/` (ex. `public/images/realisations/ecole-x.jpg`) et indiquez leur chemin sans `public` (ex. `"/images/realisations/ecole-x.jpg"`), toujours avec une description (`alt`). Réduisez les photos à environ 2000 px de large avant de les ajouter.
+## Deployment (Render)
+`render.yaml` deploys the site as a static site, with no build step. **Every push to `main` republishes nute.onrender.com within 1 to 2 minutes.**
+- Old Next.js addresses (`/equipe`, `/services`, …) redirect to the new pages.
+- The previous Next.js version is kept in the `version-nextjs` branch.
+- Render reads `render.yaml` only through a Blueprint. If the existing service was created by hand, set it in the Render dashboard instead: Build Command `echo ok`, Publish Directory `.`.
 
-**Vidéos** : publiez-les sur YouTube ou Vimeo et collez le lien dans `videoUrl`.
-
-**Logo** : placez-le dans `public/images/logo.png` et indiquez `logoUrl: "/images/logo.png"` dans `entreprise.ts`. Remplacez aussi `src/app/icon.png` (icône de l'onglet) et `public/og-image.png` (image de partage, 1200 × 630).
-
-**Exemple — ajouter une réalisation** dans `src/content/realisations.ts` :
-
-```ts
-export const realisations: ProjectInput[] = [
-  {
-    slug: "starlink-bureau-petion-ville",
-    title: "Installation Starlink pour un bureau",
-    category: "starlink",
-    summary: "Connexion Internet stable pour une équipe de 12 personnes.",
-    location: "Pétion-Ville",
-    date: "2026-06-02",
-    problem: "…",
-    solution: "…",
-    results: "…",
-    coverUrl: "/images/realisations/starlink-bureau.jpg",
-    coverAlt: "Antenne Starlink installée sur le toit du bureau",
-    featured: true,
-  },
-];
+## Run locally
+The pages load `content/*.json` with `fetch`, so open them through a web server, not by double-clicking the file:
+```
+python3 -m http.server 8080   # → http://localhost:8080
 ```
 
----
+## Content (CMS)
+All editable content is in `content/`:
+- `team.json`: members. **Array order = display order.** `active: false` hides a profile. Fields: name, position, mainExpertise, institution, photo, bio, listLabel, expertise[], links[].
+- `formation.json`: the Formation text (`body`). While `body` is empty, the site shows a visible "Contenu en attente" notice.
+- `site.json`: contact details + social links (Instagram, TikTok, X). A link with an empty URL is hidden.
+- `accessoires.json`: products (cameras, Lenovo / HP / MacBook laptops, Samsung / iPhone phones, RJ45 cables) and their photos.
+- `realisations.json`: filter categories + completed work (title, category, city, photo). Counters are computed automatically.
+- `projets.json`: projet phare (AyitiCommerce): role, description, link, visual.
+- `evenements.json`: events (Deschapelles / Gestion Scolaire, Limonade, Cap-Haïtien) and their photo galleries.
+- `lieux.json`: intervention cities + GPS coordinates (used for the map).
 
-## Développement
+### Administration (`/admin`)
+Decap CMS lets an administrator add, edit, reorder (drag and drop), activate or deactivate members, upload portraits to `assets/img/team/`, add expertise and links, and edit the Formation text and contact details.
+1. The repository is already set in `admin/config.yml` (`BamsDesign/nute`).
+2. Login:
+   - **Netlify**: use the `git-gateway` backend (commented out in the config) and turn on Identity.
+   - **Other hosts (Render, etc.)**: keep `github` and add an OAuth proxy (`base_url`).
+   - **Local editing**: run `npx decap-server` at the project root, then open `http://localhost:8080/admin/`.
 
-Prérequis : **Node.js ≥ 20**.
+## 3D logo
+`assets/js/logo3d.js` extrudes the **exact path data** of the official NUTE mark (`assets/img/nute-mark-source.svg`) without changing its proportions. The body is satin black, the triangle is satin #F75006, and the scene uses studio lighting. The logo sways slowly and floats, follows the mouse, and moves with scroll (Hero 1 → Hero 2, then fades out).
+The fixed fallback `assets/img/nute-logo-3d.png` replaces WebGL in these cases: reduced motion is on, the device has ≤ 2 cores or ≤ 2 GB of memory, data saver is on, or WebGL is not available.
 
-```bash
-npm install
-```
-
-```bash
-npm run dev
-```
-
-Site disponible sur <http://localhost:3000>. Pour produire le site final dans le dossier `out/` :
-
-```bash
-npm run build
-```
-
----
-
-## Mise en ligne sur Render
-
-Le fichier `render.yaml` décrit le déploiement (Static Site gratuit, en-têtes de sécurité inclus).
-
-1. Render → **New → Blueprint** → choisissez le dépôt `BamsDesign/nute`.
-2. Cliquez sur **Apply**.
-3. Une fois l'adresse attribuée connue (ex. `https://nute.onrender.com`), mettez-la dans la variable `SITE_URL` du fichier `render.yaml` (référencement), puis envoyez le changement.
-
-Pour un nom de domaine (ex. `nuteservices.com`) : Render → service → **Settings → Custom Domains**, puis mettez `SITE_URL` à jour.
-
-Le dossier `out/` peut aussi être publié sur n'importe quel hébergeur statique (Netlify, Cloudflare Pages, GitHub Pages…).
-
----
-
-## Technique
-
-- **Next.js 15** en export statique, React 19, TypeScript strict.
-- **Design** : système CSS sur mesure (`src/app/globals.css`), polices auto-hébergées (Inter, Inter Tight, IBM Plex Mono), animations GSAP discrètes désactivées si l'utilisateur préfère réduire les animations.
-- **SEO** : titres et descriptions par page, URL canoniques, Open Graph, Twitter, `sitemap.xml`, `robots.txt`, données structurées (`Organization`, `LocalBusiness` lorsque l'adresse est renseignée, `Service`, `Event`, `Person`, `NewsArticle`, fil d'Ariane).
-- **Accessibilité** : audit axe-core WCAG 2 A/AA sans violation, navigation au clavier, aucun débordement horizontal sur mobile.
-- **Sécurité** : aucun serveur ni donnée stockée ; en-têtes (CSP, HSTS, X-Frame-Options…) définis dans `render.yaml`.
-- **Multilingue** : textes d'interface dans `src/i18n/fr.ts`, prêts pour une version créole (`ht`) et anglaise (`en`).
-
-## Informations à fournir par NUTE
-
-- [ ] Logo officiel
-- [ ] Téléphone et numéro WhatsApp (active le bouton WhatsApp sur tout le site)
-- [ ] Adresse, horaires, carte Google Maps
-- [ ] Signification officielle de « NUTE », année de création, histoire
-- [ ] Réseaux sociaux
-- [ ] Réalisations, lieux d'intervention, activités (avec photos réelles)
-- [ ] Profils de l'équipe (validés par chaque personne)
-- [ ] Témoignages et partenaires autorisés
+## ⚠️ Pending items (not received)
+0. **Accessory photos**: AI-generated (Higgsfield) and currently loaded from Higgsfield's CDN. Run `python3 tools/localize-images.py` once to copy them into `assets/img/uploads/` (recommended before going live).
+0. **Photos**: réalisations (all categories), events and the AyitiCommerce visual. Each spot shows an "add photo" frame until the photo is uploaded from `/admin`.
+1. **The 4 team photos.** They were not among the files received. A neutral placeholder (initials + "Portrait à intégrer") is shown for now. Add the photos from `/admin` (Portrait field) or set the path in `team.json`. 4:5 format recommended, same framing for everyone. Photos automatically get the same treatment (B/W, contrast, orange mark) so the series looks consistent.
+2. **Image "download (2)" (Formation text).** It was not received. **No text was invented.** Copy the text exactly into `content/formation.json → body` (or from `/admin → Formation`).
+3. **Contact details.** Add them in `content/site.json`.
+4. **Descriptions of services 02 to 06.** Only "Réparation d'ordinateurs" (01) was visible in the current site. The other rows show only the domain name.

@@ -1,0 +1,30 @@
+{
+  "title": "Lieux d’intervention",
+  "items": [
+    {
+      "city": "Cap-Haïtien",
+      "lat": 19.7577,
+      "lng": -72.2047
+    },
+    {
+      "city": "Port-au-Prince",
+      "lat": 18.5944,
+      "lng": -72.3074
+    },
+    {
+      "city": "Gonaïves",
+      "lat": 19.45,
+      "lng": -72.6833
+    },
+    {
+      "city": "Verrettes",
+      "lat": 19.05,
+      "lng": -72.4667
+    },
+    {
+      "city": "Plaisance",
+      "lat": 19.5978,
+      "lng": -72.47
+    }
+  ]
+}

@@ -1,0 +1,193 @@
+# =========================================================
+# NUTE — Content management (Decap CMS)
+# Team members, Formation text and contact details live in /content/*.json.
+# Choose ONE backend below (see README.md → "Administration").
+# =========================================================
+backend:
+  name: github
+  repo: BamsDesign/nute
+  branch: main
+  # base_url: https://your-oauth-proxy.example.com   # required when not hosted on Netlify
+# backend:                  # alternative when the site is hosted on Netlify
+#   name: git-gateway
+#   branch: main
+
+local_backend: true         # `npx decap-server` lets you edit locally without login
+
+locale: fr
+media_folder: assets/img/uploads
+public_folder: assets/img/uploads
+site_url: /
+display_url: /
+
+collections:
+  - name: content
+    label: Contenu du site
+    editor: { preview: false }
+    files:
+
+      # ---------------- NOTRE ÉQUIPE ----------------
+      - name: team
+        label: Notre équipe
+        file: content/team.json
+        format: json
+        fields:
+          - { name: sectionTitle, label: Titre de la section, widget: string, default: "Notre équipe" }
+          - { name: intro, label: Introduction, widget: text }
+          - name: members
+            label: Membres (glisser pour réordonner)
+            label_singular: membre
+            widget: list
+            allow_add: true
+            collapsed: true
+            summary: "{{fields.name}} — {{fields.position}}"
+            fields:
+              - { name: active, label: Profil actif (visible sur le site), widget: boolean, default: true }
+              - { name: id, label: "Identifiant URL (ex. prenom-nom, sans accents)", widget: string, pattern: ['^[a-z0-9-]+$', "minuscules, chiffres et tirets uniquement"] }
+              - { name: name, label: Nom complet, widget: string }
+              - { name: position, label: Poste officiel, widget: string }
+              - { name: mainExpertise, label: Expertise principale (optionnel), widget: string, required: false }
+              - { name: institution, label: Formation académique / établissement, widget: string }
+              - { name: photo, label: Portrait, widget: image, required: false, choose_url: false, hint: "Format portrait 4:5 recommandé (ex. 1600×2000), même cadrage pour toute l'équipe." }
+              - { name: bio, label: Biographie professionnelle, widget: text }
+              - name: listLabel
+                label: Intitulé de la liste
+                widget: select
+                options: ["Domaines d’expertise", "Domaines de responsabilité"]
+                default: "Domaines d’expertise"
+              - { name: expertise, label: Expertises / responsabilités, widget: list, field: { name: item, label: Élément, widget: string } }
+              - name: links
+                label: Liens professionnels
+                widget: list
+                required: false
+                summary: "{{fields.label}}"
+                fields:
+                  - { name: label, label: Libellé (ex. LinkedIn), widget: string }
+                  - { name: url, label: URL, widget: string }
+
+      # ---------------- FORMATION ----------------
+      - name: formation
+        label: Formation
+        file: content/formation.json
+        format: json
+        fields:
+          - { name: title, label: Titre, widget: string }
+          - { name: tag, label: Étiquette, widget: string }
+          - { name: body, label: "Texte Formation (à recopier exactement depuis l'image « download (2) »)", widget: text, required: false }
+          - { name: pendingNote, label: Message affiché tant que le texte est vide, widget: string }
+
+      # ---------------- CONTACT ----------------
+      - name: site
+        label: Coordonnées
+        file: content/site.json
+        format: json
+        fields:
+          - { name: contactEmail, label: E-mail, widget: string, required: false }
+          - { name: contactPhone, label: Téléphone, widget: string, required: false }
+          - { name: address, label: Adresse, widget: string, required: false }
+          - name: social
+            label: Réseaux sociaux
+            widget: list
+            summary: "{{fields.network}}"
+            fields:
+              - { name: network, label: Réseau (ex. Instagram), widget: string }
+              - { name: url, label: URL (laisser vide pour masquer), widget: string, required: false }
+
+      # ---------------- ACCESSOIRES ----------------
+      - name: accessoires
+        label: Accessoires
+        file: content/accessoires.json
+        format: json
+        fields:
+          - { name: title, label: Titre, widget: string }
+          - { name: intro, label: Introduction, widget: text }
+          - name: items
+            label: Produits (glisser pour réordonner — le 1er est affiché en grand)
+            widget: list
+            summary: "{{fields.name}}"
+            fields:
+              - { name: group, label: Catégorie, widget: string }
+              - { name: name, label: Nom, widget: string }
+              - { name: brand, label: Marque, widget: string, required: false }
+              - { name: photo, label: Photo, widget: image, required: false, choose_url: false }
+
+      # ---------------- RÉALISATIONS ----------------
+      - name: realisations
+        label: Réalisations
+        file: content/realisations.json
+        format: json
+        fields:
+          - { name: title, label: Titre, widget: string }
+          - { name: categories, label: Catégories (filtres), widget: list, field: { name: c, label: Catégorie, widget: string } }
+          - name: items
+            label: Réalisations
+            widget: list
+            summary: "{{fields.title}} — {{fields.category}}"
+            fields:
+              - { name: title, label: Titre, widget: string }
+              - { name: category, label: "Catégorie (doit correspondre exactement à un filtre)", widget: string }
+              - { name: city, label: Ville, widget: string, required: false }
+              - { name: photo, label: Photo, widget: image, choose_url: false }
+
+      # ---------------- PROJET PHARE ----------------
+      - name: projets
+        label: Projet phare
+        file: content/projets.json
+        format: json
+        fields:
+          - { name: title, label: Titre, widget: string }
+          - name: items
+            label: Projets
+            widget: list
+            summary: "{{fields.name}}"
+            fields:
+              - { name: name, label: Nom, widget: string }
+              - { name: featured, label: Projet phare (mis en avant), widget: boolean, default: false }
+              - { name: role, label: Rôle de NUTE / du projet, widget: text, required: false }
+              - { name: description, label: Description, widget: text, required: false }
+              - { name: mission, label: Mission, widget: text, required: false }
+              - { name: audience, label: Pour qui, widget: string, required: false }
+              - { name: plans, label: Forfaits, widget: string, required: false }
+              - { name: features, label: Fonctionnalités, widget: list, required: false, field: { name: f, label: Fonctionnalité, widget: string } }
+              - { name: url, label: Lien du site, widget: string, required: false }
+              - { name: aboutUrl, label: Lien « À propos », widget: string, required: false }
+              - { name: image, label: Visuel, widget: image, required: false, choose_url: false }
+
+      # ---------------- ÉVÉNEMENTS ----------------
+      - name: evenements
+        label: Événements
+        file: content/evenements.json
+        format: json
+        fields:
+          - { name: title, label: Titre, widget: string }
+          - name: items
+            label: Événements
+            widget: list
+            summary: "{{fields.order}}. {{fields.title}}"
+            fields:
+              - { name: id, label: Identifiant, widget: string }
+              - { name: order, label: Ordre, widget: number, value_type: int }
+              - { name: title, label: Titre, widget: string }
+              - { name: place, label: Lieu, widget: string, required: false }
+              - { name: city, label: Ville, widget: string, required: false }
+              - { name: region, label: Département, widget: string, required: false }
+              - { name: date, label: Date, widget: string, required: false }
+              - { name: description, label: Description, widget: text, required: false }
+              - { name: instagram, label: Lien de la publication Instagram, widget: string, required: false }
+              - { name: photos, label: Photos, widget: list, required: false, field: { name: src, label: Photo, widget: image, choose_url: false } }
+
+      # ---------------- LIEUX ----------------
+      - name: lieux
+        label: Lieux d’intervention
+        file: content/lieux.json
+        format: json
+        fields:
+          - { name: title, label: Titre, widget: string }
+          - name: items
+            label: Villes
+            widget: list
+            summary: "{{fields.city}}"
+            fields:
+              - { name: city, label: Ville, widget: string }
+              - { name: lat, label: Latitude, widget: number, value_type: float }
+              - { name: lng, label: Longitude, widget: number, value_type: float }
