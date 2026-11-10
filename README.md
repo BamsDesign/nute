@@ -230,13 +230,16 @@ Placez un proxy HTTPS (Caddy, Nginx, Traefik) devant le port 3000.
 
 ### Vercel
 
-Le dépôt contient un `vercel.json` qui force le préréglage **Next.js** et lance `npm run vercel-build` (génération Prisma, migrations si `DATABASE_URL` est défini, build).
+Le dépôt contient un `vercel.json` (préréglage **Next.js**) et un script `scripts/vercel-build.sh` qui, à chaque build, **si une base est connectée** :
+applique les migrations (via `DATABASE_URL_UNPOOLED` pour Neon), installe le catalogue de services (sans doublon) et crée le compte administrateur s'il n'existe pas encore.
 
-1. **Base de données** : Vercel → Storage → créez une base **Postgres (Neon)** et connectez-la au projet, ou collez l'URL d'une base Supabase/Neon dans la variable `DATABASE_URL` (Settings → Environment Variables).
-2. **Médias** : Vercel → Storage → créez un **Blob store** et connectez-le au projet (ajoute `BLOB_READ_WRITE_TOKEN`). Sans lui, les téléversements échouent : le disque de Vercel n'est pas persistant.
-3. **Variables** : `SITE_URL` (ex. `https://nute.vercel.app`) et `ADMIN_PATH` (chemin secret de l'administration).
-4. Redéployez. Les migrations s'appliquent automatiquement au build.
-5. Depuis votre poste, avec la même `DATABASE_URL` : `npm run db:seed`, puis `npm run admin:create`.
+1. **Base de données** : Vercel → Storage → Neon → connectez-la au projet (ajoute `DATABASE_URL` et `DATABASE_URL_UNPOOLED`).
+2. **Médias** : Vercel → Storage → **Blob** → connectez-le au projet (ajoute `BLOB_READ_WRITE_TOKEN`). Sans lui, les téléversements échouent : le disque de Vercel n'est pas persistant.
+3. **Variables** (Settings → Environment Variables) :
+   - `SITE_URL` : adresse publique, ex. `https://nute-pi.vercel.app`
+   - `ADMIN_PATH` : chemin secret de l'administration, ex. `espace-nute`
+   - `ADMIN_EMAIL`, `ADMIN_PASSWORD` (12 caractères min., majuscules, minuscules, chiffres), `ADMIN_NAME` : compte créé au premier build. Supprimez `ADMIN_PASSWORD` ensuite et changez le mot de passe dans « Mon compte ».
+4. Redéployez.
 
 Limite Vercel : 4,5 Mo par envoi. Les photos plus lourdes sont réduites automatiquement dans le navigateur ; pour les vidéos, publiez-les sur YouTube ou Vimeo et collez le lien.
 

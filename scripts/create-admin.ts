@@ -1,6 +1,6 @@
 /**
  * Crée (ou réinitialise) un compte administrateur.
- * Usage : ADMIN_EMAIL=… ADMIN_PASSWORD=… ADMIN_NAME="…" npm run admin:create
+ * Usage (réinitialise le mot de passe si le compte existe) : ADMIN_EMAIL=… ADMIN_PASSWORD=… ADMIN_NAME="…" npm run admin:create
  */
 import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcryptjs";
@@ -14,6 +14,11 @@ async function main() {
   if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) throw new Error("ADMIN_EMAIL manquant ou invalide.");
   if (password.length < 12 || !/[a-z]/.test(password) || !/[A-Z]/.test(password) || !/\d/.test(password))
     throw new Error("ADMIN_PASSWORD : 12 caractères minimum, avec majuscules, minuscules et chiffres.");
+  // --if-missing : ne touche pas à un compte existant (utilisé à chaque build Vercel).
+  if (process.argv.includes("--if-missing") && (await db.user.findUnique({ where: { email } }))) {
+    console.log(`Administrateur déjà présent : ${email}`);
+    return;
+  }
   const passwordHash = await bcrypt.hash(password, 12);
   const user = await db.user.upsert({
     where: { email },
