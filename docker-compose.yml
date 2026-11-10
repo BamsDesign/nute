@@ -1,0 +1,45 @@
+# Déploiement autonome : PostgreSQL + migrations + site.
+# 1. cp .env.example .env  et renseignez les valeurs
+# 2. docker compose up -d --build
+# 3. docker compose run --rm tools npm run db:seed
+# 4. docker compose run --rm -e ADMIN_EMAIL=… -e ADMIN_PASSWORD=… -e ADMIN_NAME="…" tools npm run admin:create
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: nute
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?définissez POSTGRES_PASSWORD}
+      POSTGRES_DB: nute
+    volumes: [pgdata:/var/lib/postgresql/data]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U nute"]
+      interval: 5s
+      retries: 10
+
+  tools:
+    build: { context: ., target: tools }
+    environment:
+      DATABASE_URL: postgresql://nute:${POSTGRES_PASSWORD}@db:5432/nute?schema=public
+    depends_on: { db: { condition: service_healthy } }
+
+  web:
+    build:
+      context: .
+      target: runner
+      args:
+        ADMIN_PATH: ${ADMIN_PATH:-espace-nute}
+        SITE_URL: ${SITE_URL:-https://www.nuteservices.com}
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      DATABASE_URL: postgresql://nute:${POSTGRES_PASSWORD}@db:5432/nute?schema=public
+      UPLOAD_DIR: /data/uploads
+    volumes: [uploads:/data/uploads]
+    ports: ["3000:3000"]
+    depends_on:
+      tools: { condition: service_completed_successfully }
+
+volumes:
+  pgdata:
+  uploads:
