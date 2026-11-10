@@ -3,6 +3,7 @@ import { stat } from "fs/promises";
 import path from "path";
 import { Readable } from "stream";
 import { MIME_BY_EXT, resolveSafe } from "@/lib/uploads";
+import { db } from "@/lib/db";
 
 export const runtime = "nodejs";
 
@@ -13,6 +14,22 @@ export async function GET(req: Request, { params }: { params: Promise<{ path: st
   const ext = path.extname(rel).slice(1).toLowerCase();
   const mime = MIME_BY_EXT[ext];
   if (!full || !mime) return new Response("Not found", { status: 404 });
+
+  // Stockage en base (MEDIA_STORAGE=db).
+  if (process.env.MEDIA_STORAGE === "db") {
+    const f = await db.mediaFile.findUnique({ where: { path: rel } });
+    if (!f) return new Response("Not found", { status: 404 });
+    return new Response(Buffer.from(f.data), {
+      headers: {
+        "Content-Type": f.mimeType,
+        "Content-Length": String(f.data.length),
+        "Cache-Control": "public, max-age=31536000, immutable",
+        "X-Content-Type-Options": "nosniff",
+        "Content-Security-Policy": "default-src 'none'; style-src 'unsafe-inline'; sandbox",
+        ...(f.mimeType === "application/pdf" ? { "Content-Disposition": "attachment" } : {}),
+      },
+    });
+  }
 
   let size: number;
   try {

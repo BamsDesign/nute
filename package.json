@@ -14,7 +14,8 @@
     "db:seed": "tsx prisma/seed.ts",
     "db:seed:demo": "tsx prisma/seed-demo.ts",
     "admin:create": "tsx scripts/create-admin.ts",
-    "vercel-build": "bash scripts/vercel-build.sh"
+    "vercel-build": "bash scripts/deploy-build.sh",
+    "render-build": "bash scripts/deploy-build.sh"
   },
   "engines": {
     "node": ">=20"

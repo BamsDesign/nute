@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Build Vercel : client Prisma, puis (si une base est connectée) migrations,
+# Build Vercel / Render : client Prisma, puis (si une base est connectée) migrations,
 # catalogue de services et compte administrateur initial, enfin build Next.js.
 set -euo pipefail
 

@@ -228,6 +228,16 @@ docker compose run --rm -e ADMIN_EMAIL=vous@exemple.com -e ADMIN_PASSWORD='MotDe
 
 Placez un proxy HTTPS (Caddy, Nginx, Traefik) devant le port 3000.
 
+### Render (recommandé)
+
+Le fichier `render.yaml` décrit tout le déploiement : une base PostgreSQL et le service web. Les photos sont enregistrées dans la base (`MEDIA_STORAGE=db`), donc aucun disque n'est nécessaire.
+
+1. Render → **New → Blueprint** → choisissez le dépôt `BamsDesign/nute`.
+2. Saisissez `ADMIN_EMAIL`, `ADMIN_PASSWORD` (12 caractères min., majuscules, minuscules, chiffres) et `ADMIN_NAME`.
+3. Validez. Chaque déploiement applique les migrations, installe le catalogue de services et crée l'administrateur s'il n'existe pas.
+
+Plans gratuits : le service web se met en veille après 15 min d'inactivité (premier chargement ≈ 1 min) et la base gratuite de Render expire après 30 jours. Pour un site d'entreprise, passez le service en **Starter** et la base en **Basic-256mb**.
+
 ### Vercel
 
 Le dépôt contient un `vercel.json` (préréglage **Next.js**) et un script `scripts/vercel-build.sh` qui, à chaque build, **si une base est connectée** :

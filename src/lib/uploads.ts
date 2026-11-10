@@ -4,6 +4,7 @@ import { mkdir, writeFile, unlink } from "fs/promises";
 import path from "path";
 import sharp from "sharp";
 import { del, put } from "@vercel/blob";
+import { db } from "./db";
 
 /** Vercel Blob si le jeton est défini (hébergement sans disque persistant), sinon disque local. */
 export const blobStorageEnabled = () => Boolean(process.env.BLOB_READ_WRITE_TOKEN);
@@ -12,6 +13,10 @@ async function save(rel: string, data: Buffer, contentType: string): Promise<str
   if (blobStorageEnabled()) {
     const blob = await put(`media/${rel}`, data, { access: "public", contentType, addRandomSuffix: false, cacheControlMaxAge: 31536000 });
     return blob.url;
+  }
+  if (process.env.MEDIA_STORAGE === "db") {
+    await db.mediaFile.create({ data: { path: rel, data: new Uint8Array(data), mimeType: contentType } });
+    return `/media/${rel}`;
   }
   await mkdir(path.dirname(path.join(UPLOAD_ROOT, rel)), { recursive: true });
   await writeFile(path.join(UPLOAD_ROOT, rel), data);
@@ -109,6 +114,11 @@ export async function storeUpload(file: File): Promise<StoredFile> {
 export async function deleteStored(filename: string, thumbUrl?: string | null, url?: string | null) {
   if (url && /^https:\/\//.test(url)) {
     await del([url, ...(thumbUrl ? [thumbUrl] : [])]).catch(() => undefined);
+    return;
+  }
+  if (process.env.MEDIA_STORAGE === "db") {
+    const thumb = thumbUrl?.replace(/^\/media\//, "");
+    await db.mediaFile.deleteMany({ where: { path: { in: [filename, ...(thumb ? [thumb] : [])] } } });
     return;
   }
   const safe = resolveSafe(filename);

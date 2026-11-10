@@ -370,3 +370,11 @@ model ContactRequest {
 
   @@index([status, createdAt])
 }
+
+/// Contenu binaire des médias lorsque MEDIA_STORAGE=db (hébergement sans disque persistant).
+model MediaFile {
+  path      String   @id
+  data      Bytes
+  mimeType  String
+  createdAt DateTime @default(now())
+}
