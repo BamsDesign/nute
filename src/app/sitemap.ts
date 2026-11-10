@@ -13,6 +13,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     changeFrequency: "weekly" as const,
     priority: p === "/" ? 1 : 0.8,
   }));
+  if (!process.env.DATABASE_URL) return statics;
   try {
     const live = { published: true, isDemo: false };
     const [services, projects, interventions, events, team, articles] = await Promise.all([

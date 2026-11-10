@@ -3,6 +3,20 @@ import { randomBytes } from "crypto";
 import { mkdir, writeFile, unlink } from "fs/promises";
 import path from "path";
 import sharp from "sharp";
+import { del, put } from "@vercel/blob";
+
+/** Vercel Blob si le jeton est défini (hébergement sans disque persistant), sinon disque local. */
+export const blobStorageEnabled = () => Boolean(process.env.BLOB_READ_WRITE_TOKEN);
+
+async function save(rel: string, data: Buffer, contentType: string): Promise<string> {
+  if (blobStorageEnabled()) {
+    const blob = await put(`media/${rel}`, data, { access: "public", contentType, addRandomSuffix: false, cacheControlMaxAge: 31536000 });
+    return blob.url;
+  }
+  await mkdir(path.dirname(path.join(UPLOAD_ROOT, rel)), { recursive: true });
+  await writeFile(path.join(UPLOAD_ROOT, rel), data);
+  return `/media/${rel}`;
+}
 
 export const UPLOAD_ROOT = path.resolve(process.env.UPLOAD_DIR || "./storage/uploads");
 
@@ -54,7 +68,6 @@ export async function storeUpload(file: File): Promise<StoredFile> {
   if (!kind) throw new UploadError("Format non pris en charge. Formats acceptés : JPG, PNG, WebP, AVIF, HEIC, GIF, MP4, WebM, PDF.");
 
   const dir = monthDir();
-  await mkdir(path.join(UPLOAD_ROOT, dir), { recursive: true });
   const base = randomBytes(12).toString("hex");
 
   if (kind === "image") {
@@ -72,12 +85,12 @@ export async function storeUpload(file: File): Promise<StoredFile> {
     const thumb = await img.clone().resize({ width: 720, height: 720, fit: "inside", withoutEnlargement: true }).webp({ quality: 76 }).toBuffer();
     const filename = `${dir}/${base}.webp`;
     const thumbName = `${dir}/${base}-sm.webp`;
-    await writeFile(path.join(UPLOAD_ROOT, filename), main.data);
-    await writeFile(path.join(UPLOAD_ROOT, thumbName), thumb);
+    const url = await save(filename, main.data, "image/webp");
+    const thumbUrl = await save(thumbName, thumb, "image/webp");
     return {
       filename,
-      url: `/media/${filename}`,
-      thumbUrl: `/media/${thumbName}`,
+      url,
+      thumbUrl,
       mimeType: "image/webp",
       size: main.data.length,
       width: main.info.width,
@@ -89,11 +102,15 @@ export async function storeUpload(file: File): Promise<StoredFile> {
   const [ext, mime, max] = map[kind];
   if (buf.length > max) throw new UploadError(`Fichier trop lourd (${Math.round(max / 1024 / 1024)} Mo maximum).`);
   const filename = `${dir}/${base}.${ext}`;
-  await writeFile(path.join(UPLOAD_ROOT, filename), buf);
-  return { filename, url: `/media/${filename}`, thumbUrl: null, mimeType: mime, size: buf.length, width: null, height: null };
+  const url = await save(filename, buf, mime);
+  return { filename, url, thumbUrl: null, mimeType: mime, size: buf.length, width: null, height: null };
 }
 
-export async function deleteStored(filename: string, thumbUrl?: string | null) {
+export async function deleteStored(filename: string, thumbUrl?: string | null, url?: string | null) {
+  if (url && /^https:\/\//.test(url)) {
+    await del([url, ...(thumbUrl ? [thumbUrl] : [])]).catch(() => undefined);
+    return;
+  }
   const safe = resolveSafe(filename);
   if (safe) await unlink(safe).catch(() => undefined);
   if (thumbUrl) {

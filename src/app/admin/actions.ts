@@ -265,7 +265,7 @@ export async function deleteMedia(id: string) {
   if (!m) redirect(adminHref("medias"));
   if ((await mediaUsage(m.url)) > 0) redirect(adminHref(`medias/${id}?erreur=utilise`));
   await db.media.delete({ where: { id } });
-  await deleteStored(m.filename, m.thumbUrl);
+  await deleteStored(m.filename, m.thumbUrl, m.url);
   await audit("media.delete", { userId: user.id, entity: "Media", entityId: id, details: { name: m.originalName } });
   redirect(adminHref("medias?supprime=1"));
 }

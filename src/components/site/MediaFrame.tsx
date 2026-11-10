@@ -33,7 +33,7 @@ export function MediaFrame({ src, thumb, alt, ratio, label, priority, sizes, cla
       </div>
     );
   }
-  const isLocalWebp = src.startsWith("/media/") && src.endsWith(".webp");
+  const isLocalWebp = (src.startsWith("/media/") || src.includes(".public.blob.vercel-storage.com/media/")) && src.endsWith(".webp") && !src.endsWith("-sm.webp");
   const small = thumb ?? (isLocalWebp ? src.replace(/\.webp$/, "-sm.webp") : null);
   return (
     <div className={`frame ${className ?? ""}`} style={style}>

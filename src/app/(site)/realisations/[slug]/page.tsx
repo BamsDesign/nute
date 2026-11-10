@@ -16,6 +16,7 @@ import { CtaBand } from "@/components/site/CtaBand";
 export const revalidate = 300;
 
 export async function generateStaticParams() {
+  if (!process.env.DATABASE_URL) return [];
   try {
     return (await db.project.findMany({ where: { published: true }, select: { slug: true } })).map((p) => ({ slug: p.slug }));
   } catch {

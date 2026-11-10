@@ -27,6 +27,7 @@ export const getLocale = cache(async (): Promise<Locale> => {
 export const getDictionary = cache(async (locale?: Locale) => {
   const loc = locale ?? (await getLocale());
   const dict: Record<string, string> = { ...fr };
+  if (!process.env.DATABASE_URL) return (key: DictKey) => dict[key] ?? key;
   try {
     const rows = await db.translation.findMany({ where: { locale: { in: loc === "fr" ? ["fr"] : ["fr", loc] } } });
     // Les surcharges françaises d'abord, puis la langue cible.

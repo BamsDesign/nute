@@ -134,6 +134,7 @@ export const DEFAULT_ABOUT: AboutSettings = {
 };
 
 async function readSetting<T extends object>(key: string, defaults: T): Promise<T> {
+  if (!process.env.DATABASE_URL) return defaults;
   try {
     const row = await db.setting.findUnique({ where: { key } });
     if (!row || typeof row.value !== "object" || row.value === null) return defaults;

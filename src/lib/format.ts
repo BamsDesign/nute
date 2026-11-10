@@ -21,7 +21,7 @@ export function slugify(input: string): string {
 export function videoEmbedUrl(url: string | null | undefined): { kind: "embed" | "file"; src: string } | null {
   if (!url) return null;
   try {
-    if (url.startsWith("/media/")) return { kind: "file", src: url };
+    if (url.startsWith("/media/") || /^https:\/\/[\w-]+\.public\.blob\.vercel-storage\.com\//.test(url)) return { kind: "file", src: url };
     const u = new URL(url);
     if (/(^|\.)youtube\.com$/.test(u.hostname)) {
       const id = u.searchParams.get("v") ?? u.pathname.split("/").pop();

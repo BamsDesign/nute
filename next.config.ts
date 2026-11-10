@@ -7,9 +7,9 @@ const csp = [
   // Next.js injecte des scripts inline d'hydratation.
   `script-src 'self' 'unsafe-inline'${isProd ? "" : " 'unsafe-eval'"}`,
   "style-src 'self' 'unsafe-inline'",
-  "img-src 'self' data: blob:",
+  "img-src 'self' data: blob: https://*.public.blob.vercel-storage.com",
   "font-src 'self' data:",
-  "media-src 'self' blob:",
+  "media-src 'self' blob: https://*.public.blob.vercel-storage.com",
   "connect-src 'self'",
   // Vidéos intégrées (YouTube / Vimeo) et carte Google Maps.
   "frame-src https://www.youtube-nocookie.com https://player.vimeo.com https://www.google.com",

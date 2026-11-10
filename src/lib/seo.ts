@@ -19,7 +19,7 @@ type PageMetaInput = {
 /** Métadonnées d'une page, surchargées par l'entrée SEO éditée dans l'administration. */
 export async function pageMetadata(input: PageMetaInput): Promise<Metadata> {
   const [override, company] = await Promise.all([
-    db.seoMeta.findUnique({ where: { path: input.path } }).catch(() => null),
+    process.env.DATABASE_URL ? db.seoMeta.findUnique({ where: { path: input.path } }).catch(() => null) : null,
     getCompany(),
   ]);
   const title = override?.title || input.title;

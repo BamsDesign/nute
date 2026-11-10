@@ -17,6 +17,25 @@ const CATEGORIES = [
   ["OTHER", "Autres"],
 ] as const;
 
+const MAX_REQUEST = 4 * 1024 * 1024;
+
+/** Réduit les grandes photos dans le navigateur (≤ 2400 px, JPEG) pour respecter la limite des hébergeurs serverless. */
+async function prepare(file: File): Promise<File> {
+  if (!file.type.startsWith("image/") || file.size <= MAX_REQUEST || file.type === "image/gif") return file;
+  try {
+    const bmp = await createImageBitmap(file);
+    const scale = Math.min(1, 2400 / Math.max(bmp.width, bmp.height));
+    const canvas = document.createElement("canvas");
+    canvas.width = Math.round(bmp.width * scale);
+    canvas.height = Math.round(bmp.height * scale);
+    canvas.getContext("2d")!.drawImage(bmp, 0, 0, canvas.width, canvas.height);
+    const blob = await new Promise<Blob | null>((r) => canvas.toBlob(r, "image/jpeg", 0.9));
+    return blob ? new File([blob], file.name.replace(/\.\w+$/, ".jpg"), { type: "image/jpeg" }) : file;
+  } catch {
+    return file;
+  }
+}
+
 export function Uploader({ onUploaded, defaultCategory = "OTHER", accept = "image/*,video/mp4,video/webm,application/pdf" }: { onUploaded: (m: MediaItem) => void; defaultCategory?: string; accept?: string }) {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -33,12 +52,13 @@ export function Uploader({ onUploaded, defaultCategory = "OTHER", accept = "imag
       i++;
       setProgress(`${i} / ${files.length} — ${file.name}`);
       const fd = new FormData();
-      fd.append("file", file);
+      fd.append("file", await prepare(file));
       fd.append("category", category);
       try {
         const r = await fetch("/api/cms/upload", { method: "POST", body: fd });
         const j = await r.json().catch(() => ({}));
-        if (!r.ok) setError(`${file.name} : ${j.error ?? "échec du téléversement"}`);
+        if (r.status === 413) setError(`${file.name} : fichier trop lourd pour l'hébergement (4 Mo max. par envoi). Pour les vidéos, publiez-les sur YouTube et collez le lien.`);
+        else if (!r.ok) setError(`${file.name} : ${j.error ?? "échec du téléversement"}`);
         else onUploaded(j.media);
       } catch {
         setError(`${file.name} : connexion interrompue.`);

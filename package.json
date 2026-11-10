@@ -13,13 +13,15 @@
     "db:migrate:dev": "prisma migrate dev",
     "db:seed": "tsx prisma/seed.ts",
     "db:seed:demo": "tsx prisma/seed-demo.ts",
-    "admin:create": "tsx scripts/create-admin.ts"
+    "admin:create": "tsx scripts/create-admin.ts",
+    "vercel-build": "prisma generate && (test -z \"$DATABASE_URL\" || prisma migrate deploy) && next build"
   },
   "engines": {
     "node": ">=20"
   },
   "dependencies": {
     "@prisma/client": "^6.19.3",
+    "@vercel/blob": "^2.9.0",
     "bcryptjs": "^3.0.3",
     "gsap": "^3.13.0",
     "next": "^15.5.29",
