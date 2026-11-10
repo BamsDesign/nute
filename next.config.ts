@@ -34,7 +34,8 @@ const nextConfig: NextConfig = {
   poweredByHeader: false,
   // Inliné à la compilation (middleware + composants d’administration).
   env: { ADMIN_PATH: process.env.ADMIN_PATH || "espace-nute" },
-  output: "standalone",
+  // Sortie autonome pour l'image Docker uniquement (Render / Vercel utilisent `next start`).
+  output: process.env.NEXT_OUTPUT_STANDALONE === "1" ? "standalone" : undefined,
   experimental: {
     serverActions: { bodySizeLimit: "2mb" },
   },

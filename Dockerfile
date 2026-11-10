@@ -19,7 +19,7 @@ ENV NEXT_TELEMETRY_DISABLED=1
 # ADMIN_PATH est inliné à la compilation : il doit être fourni au build.
 ARG ADMIN_PATH=espace-nute
 ARG SITE_URL=https://www.nuteservices.com
-ENV ADMIN_PATH=$ADMIN_PATH SITE_URL=$SITE_URL
+ENV ADMIN_PATH=$ADMIN_PATH SITE_URL=$SITE_URL NEXT_OUTPUT_STANDALONE=1
 RUN npx prisma generate && npx next build
 
 # ── Exécution ──────────────────────────────────────────────────
