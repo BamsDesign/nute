@@ -7,8 +7,6 @@ import { EventCard } from "@/components/site/cards";
 import { Timeline } from "@/components/site/Timeline";
 import { CtaBand } from "@/components/site/CtaBand";
 
-export const revalidate = 300;
-
 export async function generateMetadata() {
   return pageMetadata({
     path: "/formations",

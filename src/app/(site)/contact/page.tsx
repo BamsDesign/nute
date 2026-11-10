@@ -9,10 +9,9 @@ export async function generateMetadata() {
   return pageMetadata({ path: "/contact", title: "Contact — demande d'information ou de devis", description: "Contactez NUTE pour un dépannage, une installation, un projet numérique, une prestation multimédia ou une formation. Réponse par e-mail ou WhatsApp." });
 }
 
-export default async function ContactPage({ searchParams }: { searchParams: Promise<{ service?: string }> }) {
-  const [{ service }, c, catalogue] = await Promise.all([searchParams, getCompany(), getServiceCatalogue()]);
+export default async function ContactPage() {
+  const [c, catalogue] = await Promise.all([getCompany(), getServiceCatalogue()]);
   const services = catalogue.flatMap((cat) => cat.services.map((s) => ({ value: s.slug, label: s.title, group: cat.title })));
-  const defaultService = services.some((s) => s.value === service) ? service : undefined;
   const wa = whatsappLink(c.whatsapp, "Bonjour NUTE, je souhaite obtenir des informations.");
   const socials = Object.entries(c.socials).filter(([, v]) => v) as [string, string][];
 
@@ -79,7 +78,7 @@ export default async function ContactPage({ searchParams }: { searchParams: Prom
             )}
           </div>
           <div className="split__main">
-            <ContactForm services={services} defaultService={defaultService} />
+            <ContactForm services={services} email={c.email} whatsapp={c.whatsapp} />
           </div>
         </div>
       </section>

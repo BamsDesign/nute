@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getArticle, getArticles } from "@/lib/queries";
+import { getArticle, getArticles, staticParams } from "@/lib/queries";
 import { absoluteUrl, pageMetadata, SITE_URL } from "@/lib/seo";
 import { getCompany } from "@/lib/settings";
 import { ARTICLE_CATEGORIES, labelOf } from "@/lib/taxonomy";
@@ -10,7 +10,8 @@ import { MediaFrame } from "@/components/site/MediaFrame";
 import { Markdown } from "@/components/site/Markdown";
 import { ArticleCard } from "@/components/site/cards";
 
-export const revalidate = 300;
+export const dynamicParams = false;
+export const generateStaticParams = async () => staticParams.articles();
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const a = await getArticle((await params).slug);
@@ -112,7 +113,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
             headline: a.title,
             description: a.excerpt,
             datePublished: a.publishedAt?.toISOString(),
-            dateModified: a.updatedAt.toISOString(),
+            dateModified: a.publishedAt.toISOString(),
             author: { "@type": "Person", name: a.authorName },
             publisher: { "@type": "Organization", "@id": `${SITE_URL}/#organization`, name: c.name, ...(c.logoUrl ? { logo: { "@type": "ImageObject", url: absoluteUrl(c.logoUrl) } } : {}) },
             mainEntityOfPage: url,

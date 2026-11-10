@@ -1730,7 +1730,7 @@ a.index-row:hover .index-row__arrow {
 }
 
 /* État initial des éléments animés (uniquement si le JS est actif et le mouvement autorisé). */
-html.js-motion [data-reveal] {
+html.js-motion:not(.motion-ready) [data-reveal] {
   opacity: 0;
 }
 html.js-motion [data-lines] .line > span {

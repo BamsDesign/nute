@@ -32,6 +32,8 @@ export function Motion() {
         });
         const items = gsap.utils.toArray<HTMLElement>("[data-reveal]");
         gsap.set(items, { opacity: 0, y: 24 });
+        // Les éléments ajoutés plus tard (filtres) restent visibles sans animation.
+        root.classList.add("motion-ready");
         ScrollTrigger.batch(items, {
           start: "top 92%",
           once: true,
@@ -45,6 +47,7 @@ export function Motion() {
     return () => {
       cancelled = true;
       ctx?.revert();
+      root.classList.remove("motion-ready");
     };
   }, [pathname]);
 

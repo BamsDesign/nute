@@ -1,14 +1,12 @@
-import Link from "next/link";
 import { getInterventions } from "@/lib/queries";
 import { pageMetadata } from "@/lib/seo";
 import { INTERVENTION_TYPES, labelOf } from "@/lib/taxonomy";
 import { formatMonth } from "@/lib/format";
+import { InterventionsBrowser } from "@/components/site/browsers";
 import { getDictionary } from "@/i18n";
-import { DemoBadge, EmptyState, PageHero } from "@/components/site/ui";
+import { PageHero } from "@/components/site/ui";
 import { HaitiMap, type MapPoint } from "@/components/site/HaitiMap";
 import { CtaBand } from "@/components/site/CtaBand";
-
-export const revalidate = 300;
 
 export async function generateMetadata() {
   return pageMetadata({
@@ -18,11 +16,8 @@ export async function generateMetadata() {
   });
 }
 
-export default async function InterventionsPage({ searchParams }: { searchParams: Promise<{ type?: string }> }) {
-  const { type } = await searchParams;
+export default async function InterventionsPage() {
   const [all, t] = await Promise.all([getInterventions(), getDictionary()]);
-  const active = INTERVENTION_TYPES.some((x) => x.value === type) ? type : undefined;
-  const list = active ? all.filter((i) => i.type === active) : all;
   const points: MapPoint[] = all
     .filter((i) => i.latitude != null && i.longitude != null)
     .map((i) => ({
@@ -38,7 +33,6 @@ export default async function InterventionsPage({ searchParams }: { searchParams
       isDemo: i.isDemo,
     }));
   const departments = new Set(all.map((i) => i.department).filter(Boolean));
-  const presentTypes = INTERVENTION_TYPES.filter((x) => all.some((i) => i.type === x.value));
 
   return (
     <>
@@ -75,41 +69,7 @@ export default async function InterventionsPage({ searchParams }: { searchParams
           <h2 id="liste" className="sr-only">
             Liste des interventions
           </h2>
-          {presentTypes.length > 1 && (
-            <nav className="filters" aria-label="Filtrer par type de lieu">
-              <Link href="/interventions" className="filter" aria-current={!active ? "true" : undefined} scroll={false}>
-                Tous
-              </Link>
-              {presentTypes.map((x) => (
-                <Link key={x.value} href={`/interventions?type=${x.value}`} className="filter" aria-current={active === x.value ? "true" : undefined} scroll={false}>
-                  {x.label}
-                </Link>
-              ))}
-            </nav>
-          )}
-          {list.length ? (
-            <ul className="index-list">
-              {list.map((i) => (
-                <li key={i.id} data-reveal>
-                  <Link href={`/interventions/${i.slug}`} className="index-row" style={{ gridTemplateColumns: "minmax(0,2fr) minmax(0,4fr) minmax(0,4fr) auto" }}>
-                    <span className="index-row__num">{formatMonth(i.date) || "—"}</span>
-                    <span className="index-row__title">
-                      {i.name} {i.isDemo && <DemoBadge />}
-                      <span className="mono muted" style={{ display: "block", marginTop: "0.35rem", fontFamily: "var(--font-mono)" }}>
-                        {labelOf(INTERVENTION_TYPES, i.type)} · {[i.city, i.department].filter(Boolean).join(", ")}
-                      </span>
-                    </span>
-                    <span className="index-row__text">{i.purpose}</span>
-                    <span className="index-row__arrow" aria-hidden="true">
-                      →
-                    </span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <EmptyState text={t("empty.interventions")} />
-          )}
+          <InterventionsBrowser items={all} emptyText={t("empty.interventions")} />
         </div>
       </section>
       <CtaBand />

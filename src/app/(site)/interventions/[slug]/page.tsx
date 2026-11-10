@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
-import { getIntervention } from "@/lib/queries";
-import { loadGallery } from "@/lib/gallery";
+import { getIntervention, staticParams } from "@/lib/queries";
+import { splitPhotos } from "@/lib/gallery";
 import { pageMetadata } from "@/lib/seo";
 import { INTERVENTION_TYPES, labelOf } from "@/lib/taxonomy";
 import { formatDate } from "@/lib/format";
@@ -10,7 +10,8 @@ import { Gallery } from "@/components/site/Gallery";
 import { ProjectCard } from "@/components/site/cards";
 import { CtaBand } from "@/components/site/CtaBand";
 
-export const revalidate = 300;
+export const dynamicParams = false;
+export const generateStaticParams = async () => staticParams.interventions();
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const i = await getIntervention((await params).slug);
@@ -21,7 +22,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 export default async function InterventionPage({ params }: { params: Promise<{ slug: string }> }) {
   const i = await getIntervention((await params).slug);
   if (!i) notFound();
-  const { gallery } = await loadGallery("Intervention", i.id);
+  const { gallery } = splitPhotos(i.photos);
   const type = labelOf(INTERVENTION_TYPES, i.type);
   return (
     <>

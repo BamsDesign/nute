@@ -1,6 +1,4 @@
-import "server-only";
 import type { Metadata } from "next";
-import { db } from "./db";
 import { getCompany } from "./settings";
 
 import { SITE_URL, absoluteUrl } from "./site-url";
@@ -16,21 +14,18 @@ type PageMetaInput = {
   noindex?: boolean;
 };
 
-/** Métadonnées d'une page, surchargées par l'entrée SEO éditée dans l'administration. */
+/** Métadonnées d'une page (titre, description, canonique, Open Graph, Twitter). */
 export async function pageMetadata(input: PageMetaInput): Promise<Metadata> {
-  const [override, company] = await Promise.all([
-    process.env.DATABASE_URL ? db.seoMeta.findUnique({ where: { path: input.path } }).catch(() => null) : null,
-    getCompany(),
-  ]);
-  const title = override?.title || input.title;
-  const description = override?.description || input.description;
-  const image = override?.ogImage || input.image || "/opengraph-image";
-  const url = absoluteUrl(input.path);
+  const company = await getCompany();
+  const { title, description } = input;
+  const image = input.image || "/og-image.png";
+  // Le site statique est servi avec une barre oblique finale (trailingSlash).
+  const url = absoluteUrl(input.path === "/" ? "/" : `${input.path.replace(/\/$/, "")}/`);
   return {
     title,
     description,
     alternates: { canonical: url },
-    robots: override?.noindex || input.noindex ? { index: false, follow: true } : undefined,
+    robots: input.noindex ? { index: false, follow: true } : undefined,
     openGraph: {
       type: input.type ?? "website",
       url,

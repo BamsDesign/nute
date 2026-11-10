@@ -1,0 +1,4 @@
+Polices auto-hébergées (SIL Open Font License 1.1) :
+- Inter et Inter Tight — Rasmus Andersson
+- IBM Plex Mono — IBM
+Fichiers issus des paquets Fontsource (sous-ensemble latin).

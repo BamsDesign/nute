@@ -1,42 +1,38 @@
-# Blueprint Render — site NUTE : base PostgreSQL + service web Next.js.
-# Les médias sont stockés dans la base (MEDIA_STORAGE=db) : aucun disque requis.
-databases:
-  - name: nute-db
-    databaseName: nute
-    user: nute
-    plan: free
-    region: virginia
-    postgresMajorVersion: "16"
-
+# Blueprint Render — site vitrine NUTE, 100 % statique (aucun serveur, aucune base de données).
+# Render → New → Blueprint → dépôt BamsDesign/nute → Apply.
 services:
   - type: web
+    runtime: static
     name: nute
-    runtime: node
-    plan: free
-    region: virginia
     branch: main
-    buildCommand: npm ci && npm run render-build
-    startCommand: npm start
-    healthCheckPath: /robots.txt
+    buildCommand: npm ci && npm run build
+    staticPublishPath: out
+    pullRequestPreviewsEnabled: false
     envVars:
       - key: NODE_VERSION
         value: "22"
-      - key: DATABASE_URL
-        fromDatabase:
-          name: nute-db
-          property: connectionString
-      - key: MEDIA_STORAGE
-        value: db
+      # Adresse publique du site (sans barre finale) : à modifier si vous utilisez un nom de domaine.
       - key: SITE_URL
-        value: https://nute-dixz.onrender.com
-      - key: ADMIN_PATH
-        value: espace-nute
-      - key: CONTACT_NOTIFY_TO
-        value: nuteservices@gmail.com
-      # Compte administrateur créé au premier déploiement (à saisir dans le tableau de bord Render).
-      - key: ADMIN_EMAIL
-        sync: false
-      - key: ADMIN_PASSWORD
-        sync: false
-      - key: ADMIN_NAME
-        sync: false
+        value: https://nute.onrender.com
+    headers:
+      - path: /*
+        name: X-Content-Type-Options
+        value: nosniff
+      - path: /*
+        name: X-Frame-Options
+        value: DENY
+      - path: /*
+        name: Referrer-Policy
+        value: strict-origin-when-cross-origin
+      - path: /*
+        name: Permissions-Policy
+        value: camera=(), microphone=(), geolocation=()
+      - path: /*
+        name: Strict-Transport-Security
+        value: max-age=63072000; includeSubDomains
+      - path: /*
+        name: Content-Security-Policy
+        value: "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; media-src 'self'; connect-src 'self'; frame-src https://www.youtube-nocookie.com https://player.vimeo.com https://www.google.com; frame-ancestors 'none'; form-action 'self' mailto:; base-uri 'self'; object-src 'none'; upgrade-insecure-requests"
+      - path: /_next/static/*
+        name: Cache-Control
+        value: public, max-age=31536000, immutable

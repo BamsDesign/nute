@@ -1,15 +1,16 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getTeamMember } from "@/lib/queries";
+import { getTeamMember, staticParams } from "@/lib/queries";
 import { absoluteUrl, pageMetadata, SITE_URL } from "@/lib/seo";
 import { Arrow, DemoNote, JsonLd, PageHero } from "@/components/site/ui";
 import { MediaFrame } from "@/components/site/MediaFrame";
 import { Markdown } from "@/components/site/Markdown";
 
-export const revalidate = 300;
-
 type Edu = { institution?: string; degree?: string; field?: string; year?: string };
 type Exp = { organization?: string; role?: string; period?: string; description?: string };
+
+export const dynamicParams = false;
+export const generateStaticParams = async () => staticParams.team();
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const m = await getTeamMember((await params).slug);
@@ -29,8 +30,8 @@ function Section({ title, children }: { title: string; children: React.ReactNode
 export default async function MemberPage({ params }: { params: Promise<{ slug: string }> }) {
   const m = await getTeamMember((await params).slug);
   if (!m) notFound();
-  const education = (Array.isArray(m.education) ? m.education : []) as Edu[];
-  const experience = (Array.isArray(m.experience) ? m.experience : []) as Exp[];
+  const education: Edu[] = m.education;
+  const experience: Exp[] = m.experience;
 
   return (
     <>
