@@ -75,6 +75,7 @@ collections:
           - { name: tag, label: Étiquette, widget: string }
           - { name: body, label: "Texte Formation (à recopier exactement depuis l'image « download (2) »)", widget: text, required: false }
           - { name: pendingNote, label: Message affiché tant que le texte est vide, widget: string }
+          - { name: photos, label: Photos, widget: list, required: false, field: { name: src, label: Photo, widget: image, choose_url: false } }
 
       # ---------------- CONTACT ----------------
       - name: site

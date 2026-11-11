@@ -4,7 +4,7 @@
 import { gsap, ScrollTrigger, initSite, initReveals, initContact, wordScrub, linesHTML, revealLines,
          getTeam, getJSON, portraitHTML, profileURL, esc, pad, reduceMotion, isMobile } from './site.js';
 import { createLogoStage } from './logo3d.js';
-import { initSections } from './sections.js';
+import { initSections, slot } from './sections.js';
 
 initSite();
 
@@ -123,6 +123,13 @@ getJSON('formation').then(f => {
   body.innerHTML = f.body && f.body.trim()
     ? `<p class="formation__body">${esc(f.body)}</p>`
     : `<div class="pending" role="note"><strong>Contenu en attente</strong><p>${esc(f.pendingNote || 'Texte Formation à fournir.')}</p></div>`;
+  const photos = (f.photos || []).filter(Boolean);
+  const gallery = document.getElementById('formationPhotos');
+  if (gallery && photos.length) {
+    gallery.style.setProperty('--n', Math.min(photos.length, 5));
+    gallery.innerHTML = photos.map(src => slot(src, f.title || 'Formation')).join('');
+    gallery.hidden = false;
+  }
 }).catch(console.error);
 
 initContact();
