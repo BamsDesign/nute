@@ -2,12 +2,18 @@
   "title": "Formation",
   "tag": "Formation et accompagnement",
   "body": "",
-  "pendingNote": "Texte Formation en attente : à transcrire mot pour mot depuis l’image officielle « download (2) ». Aucun texte n’a été inventé.",
-  "photos": [
-    "assets/img/uploads/formation-1.webp",
-    "assets/img/uploads/formation-2.webp",
-    "assets/img/uploads/formation-3.webp",
-    "assets/img/uploads/formation-4.webp",
-    "assets/img/uploads/formation-5.webp"
+  "items": [
+    {
+      "title": "Formation sur l’intelligence artificielle",
+      "date": "",
+      "description": "",
+      "photos": [
+        "assets/img/uploads/formation-1.webp",
+        "assets/img/uploads/formation-2.webp",
+        "assets/img/uploads/formation-3.webp",
+        "assets/img/uploads/formation-4.webp",
+        "assets/img/uploads/formation-5.webp"
+      ]
+    }
   ]
 }

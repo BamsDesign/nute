@@ -115,21 +115,25 @@ getTeam().then(team => {
   ScrollTrigger.refresh();
 }).catch(console.error);
 
-/* ---------- Formation (CMS — source: image « download (2) ») ---------- */
+/* ---------- Formation (CMS) : liste des formations données ---------- */
 getJSON('formation').then(f => {
   document.querySelector('[data-formation-title]').textContent = f.title || 'Formation';
   if (f.tag) document.querySelector('[data-formation-tag]').textContent = f.tag;
   const body = document.getElementById('formationBody');
-  body.innerHTML = f.body && f.body.trim()
-    ? `<p class="formation__body">${esc(f.body)}</p>`
-    : `<div class="pending" role="note"><strong>Contenu en attente</strong><p>${esc(f.pendingNote || 'Texte Formation à fournir.')}</p></div>`;
-  const photos = (f.photos || []).filter(Boolean);
-  const gallery = document.getElementById('formationPhotos');
-  if (gallery && photos.length) {
-    gallery.style.setProperty('--n', Math.min(photos.length, 5));
-    gallery.innerHTML = photos.map(src => slot(src, f.title || 'Formation')).join('');
-    gallery.hidden = false;
-  }
+  body.innerHTML = f.body && f.body.trim() ? `<p class="formation__body">${esc(f.body)}</p>` : '';
+  document.getElementById('formationList').innerHTML = (f.items || []).filter(t => t && t.title).map((t, i) => {
+    const photos = (t.photos || []).filter(Boolean);
+    return `
+    <article class="event" data-reveal>
+      <span class="index">${pad(i + 1)}</span>
+      <div class="event__head">
+        <h3 class="event__title">${esc(t.title)}</h3>
+        ${t.date ? `<div class="event__where"><span class="tag">${esc(t.date)}</span></div>` : ''}
+        ${t.description ? `<p class="event__desc">${esc(t.description)}</p>` : ''}
+      </div>
+      <div class="event__photos" style="--n:${Math.min(Math.max(photos.length, 3), 4)}">${photos.map(src => slot(src, t.title)).join('')}</div>
+    </article>`;
+  }).join('');
 }).catch(console.error);
 
 initContact();

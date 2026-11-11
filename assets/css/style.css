@@ -311,8 +311,7 @@ a:hover .portrait img, .tm:hover .portrait img { transform: scale(1.06); }
 
 /* formation */
 .formation { display: grid; grid-template-columns: 1fr 1.3fr; gap: clamp(24px, 5vw, 80px); }
-.formation .formation__photos { grid-column: 1 / -1; }
-.formation__photos[hidden] { display: none; }
+.formation__list { margin-top: 48px; }
 .formation__body { font-size: clamp(17px, 1.5vw, 21px); line-height: 1.45; letter-spacing: -.01em; white-space: pre-line; }
 .pending {
   border: 1px dashed var(--orange); border-radius: 14px;

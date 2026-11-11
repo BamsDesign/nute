@@ -25,11 +25,11 @@ python3 -m http.server 8080   # → http://localhost:8080
 ## Content (CMS)
 All editable content is in `content/`:
 - `team.json`: members. **Array order = display order.** `active: false` hides a profile. Fields: name, position, mainExpertise, institution, photo, bio, listLabel, expertise[], links[].
-- `formation.json`: the Formation text (`body`). While `body` is empty, the site shows a visible "Contenu en attente" notice.
 - `site.json`: contact details + social links (Instagram, TikTok, X). A link with an empty URL is hidden.
 - `accessoires.json`: products (cameras, Lenovo / HP / MacBook laptops, Samsung / iPhone phones, RJ45 cables) and their photos.
 - `realisations.json`: filter categories + completed work (title, category, city, photo). Counters are computed automatically.
 - `projets.json`: projet phare (AyitiCommerce): role, description, link, visual.
+- `formation.json`: optional intro text + the list of trainings given, with their photos.
 - `evenements.json`: events (Deschapelles / Gestion Scolaire, Limonade, Cap-Haïtien) and their photo galleries.
 - `lieux.json`: intervention cities + GPS coordinates (used for the map).
 
@@ -49,6 +49,6 @@ The fixed fallback `assets/img/nute-logo-3d.png` replaces WebGL in these cases: 
 0. **Accessory photos**: AI-generated (Higgsfield) and currently loaded from Higgsfield's CDN. Run `python3 tools/localize-images.py` once to copy them into `assets/img/uploads/` (recommended before going live).
 0. **Photos**: réalisations (all categories), events and the AyitiCommerce visual. Each spot shows an "add photo" frame until the photo is uploaded from `/admin`.
 1. **The 4 team photos.** They were not among the files received. A neutral placeholder (initials + "Portrait à intégrer") is shown for now. Add the photos from `/admin` (Portrait field) or set the path in `team.json`. 4:5 format recommended, same framing for everyone. Photos automatically get the same treatment (B/W, contrast, orange mark) so the series looks consistent.
-2. **Image "download (2)" (Formation text).** It was not received. **No text was invented.** Copy the text exactly into `content/formation.json → body` (or from `/admin → Formation`).
+2. **Formation.** The section lists the trainings given (`content/formation.json → items`: title, date, description, photos). The first one is "Formation sur l’intelligence artificielle". Add new trainings from `/admin → Formation`.
 3. **Contact details.** Add them in `content/site.json`.
 4. **Descriptions of services 02 to 06.** Only "Réparation d'ordinateurs" (01) was visible in the current site. The other rows show only the domain name.
