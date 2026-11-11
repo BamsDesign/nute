@@ -99,7 +99,8 @@ async function events() {
   const list = [...(d.items || [])].sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
   document.getElementById('eventsList').innerHTML = list.map((ev, i) => {
     const photos = (ev.photos || []).filter(Boolean);
-    const MAX = 8;
+    // without an Instagram link there is nowhere to see hidden photos, so show them all
+    const MAX = ev.instagram ? 8 : Infinity;
     const shown = photos.slice(0, MAX), more = photos.length - shown.length;
     const slots = photos.length
       ? shown.map(src => slot(src, ev.title)).join('')

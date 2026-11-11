@@ -11,11 +11,11 @@
       "date": "",
       "description": "Présentation de Gestion Scolaire, le premier logiciel de NUTE, à la Bibliothèque communautaire de Deschapelles (Artibonite).",
       "photos": [
-        "https://d2ol7oe51mr4n9.cloudfront.net/user_3A5NxumirWaUw0LAMbnIuFxQ6wT/5688b40a-07ba-4a38-a316-8869af8d4ecf.png",
-        "https://d2ol7oe51mr4n9.cloudfront.net/user_3A5NxumirWaUw0LAMbnIuFxQ6wT/2e54143c-7572-4e66-a31b-09c0156c04d4.png",
-        "https://d2ol7oe51mr4n9.cloudfront.net/user_3A5NxumirWaUw0LAMbnIuFxQ6wT/c2e5fda6-ff5b-491a-9885-09b29c193dfe.png",
-        "https://d2ol7oe51mr4n9.cloudfront.net/user_3A5NxumirWaUw0LAMbnIuFxQ6wT/3ec9ab7e-aadb-4414-8497-023dd0c02c15.png",
-        "https://d2ol7oe51mr4n9.cloudfront.net/user_3A5NxumirWaUw0LAMbnIuFxQ6wT/a256a0d0-eb0a-4916-8479-cebf9ad5a0f0.png"
+        "assets/img/uploads/deschapelles-1.webp",
+        "assets/img/uploads/deschapelles-2.webp",
+        "assets/img/uploads/deschapelles-3.webp",
+        "assets/img/uploads/deschapelles-4.webp",
+        "assets/img/uploads/deschapelles-5.webp"
       ],
       "instagram": "https://www.instagram.com/p/DYzocedliDX/",
       "instagramExtra": "https://www.instagram.com/p/DYyPSQWDc0k/"
@@ -28,8 +28,14 @@
       "city": "Limonade",
       "region": "Nord",
       "date": "",
-      "description": "",
-      "photos": []
+      "description": "Présentation de Gestion Scolaire, le logiciel de NUTE, à Limonade (Nord), et signature du contrat de prestation avec l’école.",
+      "photos": [
+        "assets/img/uploads/limonade-1.jpg",
+        "assets/img/uploads/limonade-2.jpg",
+        "assets/img/uploads/limonade-3.jpg",
+        "assets/img/uploads/limonade-4.jpg",
+        "assets/img/uploads/limonade-5.jpg"
+      ]
     },
     {
       "id": "cap-haitien",
@@ -41,17 +47,14 @@
       "date": "",
       "description": "",
       "photos": [
-        "https://d2ol7oe51mr4n9.cloudfront.net/user_3A5NxumirWaUw0LAMbnIuFxQ6wT/8dea49d1-064c-4468-b96c-1ad325db73c5.png",
-        "https://d2ol7oe51mr4n9.cloudfront.net/user_3A5NxumirWaUw0LAMbnIuFxQ6wT/2027d945-79e1-43ea-a780-055c6a6fab88.png",
-        "https://d2ol7oe51mr4n9.cloudfront.net/user_3A5NxumirWaUw0LAMbnIuFxQ6wT/5e0252e8-4f97-4209-a8fb-7c3fd163f888.png",
-        "https://d2ol7oe51mr4n9.cloudfront.net/user_3A5NxumirWaUw0LAMbnIuFxQ6wT/26c390b4-185d-4221-9973-52e4170b2980.png",
-        "https://d2ol7oe51mr4n9.cloudfront.net/user_3A5NxumirWaUw0LAMbnIuFxQ6wT/0b767a73-bda7-447c-99ac-80453d9d5814.png",
-        "https://d2ol7oe51mr4n9.cloudfront.net/user_3A5NxumirWaUw0LAMbnIuFxQ6wT/3518a15b-5342-40b9-be74-c175b8188127.png",
-        "https://d2ol7oe51mr4n9.cloudfront.net/user_3A5NxumirWaUw0LAMbnIuFxQ6wT/9e0360fd-6705-47b3-abb0-40ae510ca67e.png",
-        "https://d2ol7oe51mr4n9.cloudfront.net/user_3A5NxumirWaUw0LAMbnIuFxQ6wT/e9a07d73-0826-4fc9-9743-1fc37ec47f3e.png",
-        "https://d2ol7oe51mr4n9.cloudfront.net/user_3A5NxumirWaUw0LAMbnIuFxQ6wT/a06687ed-4e4d-42cb-b494-5dcd3730b097.png",
-        "https://d2ol7oe51mr4n9.cloudfront.net/user_3A5NxumirWaUw0LAMbnIuFxQ6wT/a2409afd-5e28-458a-94c6-7e3a6816e2da.png",
-        "https://d2ol7oe51mr4n9.cloudfront.net/user_3A5NxumirWaUw0LAMbnIuFxQ6wT/6fd32388-caa2-4e94-8716-804b11c02eb7.png"
+        "assets/img/uploads/cap-haitien-1.webp",
+        "assets/img/uploads/cap-haitien-2.webp",
+        "assets/img/uploads/cap-haitien-3.webp",
+        "assets/img/uploads/cap-haitien-4.webp",
+        "assets/img/uploads/cap-haitien-5.webp",
+        "assets/img/uploads/cap-haitien-6.webp",
+        "assets/img/uploads/cap-haitien-7.webp",
+        "assets/img/uploads/cap-haitien-8.webp"
       ],
       "instagram": "https://www.instagram.com/p/DSLJAlggR3h/"
     },
@@ -65,10 +68,10 @@
       "date": "",
       "description": "Présentation de Gestion Scolaire, le logiciel de NUTE, à Plaisance (Nord).",
       "photos": [
-        "https://d2ol7oe51mr4n9.cloudfront.net/user_3A5NxumirWaUw0LAMbnIuFxQ6wT/1e8d6108-2083-421e-84c3-f7ddd975fec2.png",
-        "https://d2ol7oe51mr4n9.cloudfront.net/user_3A5NxumirWaUw0LAMbnIuFxQ6wT/dedf50ba-d59e-49ee-80a3-a8269b617c38.png",
-        "https://d2ol7oe51mr4n9.cloudfront.net/user_3A5NxumirWaUw0LAMbnIuFxQ6wT/2c351710-90a9-4947-a3d6-33048386523f.png",
-        "https://d2ol7oe51mr4n9.cloudfront.net/user_3A5NxumirWaUw0LAMbnIuFxQ6wT/87a63109-f02b-4950-9368-c2dab90c4297.png"
+        "assets/img/uploads/plaisance-1.webp",
+        "assets/img/uploads/plaisance-2.webp",
+        "assets/img/uploads/plaisance-3.webp",
+        "assets/img/uploads/plaisance-4.webp"
       ],
       "instagram": "https://www.instagram.com/p/DSLHWjngdxl/"
     }

@@ -160,7 +160,12 @@ export async function initContact() {
     const s = await getJSON('site');
     const rows = [];
     if (s.contactEmail) rows.push(`<a class="u-line" href="mailto:${esc(s.contactEmail)}">${esc(s.contactEmail)}</a>`);
-    if (s.contactPhone) rows.push(`<a class="u-line" href="tel:${esc(s.contactPhone.replace(/\s/g, ''))}">${esc(s.contactPhone)}</a>`);
+    // several numbers can be separated by "/" or ","; local 8-digit numbers get the Haiti prefix
+    (s.contactPhone || '').split(/[\/,]/).map(n => n.trim()).filter(Boolean).forEach(n => {
+      let tel = n.replace(/[^\d+]/g, '');
+      if (/^\d{8}$/.test(tel)) tel = '+509' + tel;
+      rows.push(`<a class="u-line" href="tel:${esc(tel)}">${esc(n)}</a>`);
+    });
     if (s.address) rows.push(`<span>${esc(s.address)}</span>`);
     list.innerHTML = rows.join('');
     const social = (s.social || []).filter(x => x && x.url)

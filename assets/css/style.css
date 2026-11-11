@@ -311,6 +311,7 @@ a:hover .portrait img, .tm:hover .portrait img { transform: scale(1.06); }
 
 /* formation */
 .formation { display: grid; grid-template-columns: 1fr 1.3fr; gap: clamp(24px, 5vw, 80px); }
+.formation__list { margin-top: 48px; }
 .formation__body { font-size: clamp(17px, 1.5vw, 21px); line-height: 1.45; letter-spacing: -.01em; white-space: pre-line; }
 .pending {
   border: 1px dashed var(--orange); border-radius: 14px;
@@ -484,7 +485,8 @@ a:hover .portrait img, .tm:hover .portrait img { transform: scale(1.06); }
 .flag__feat { display: flex; flex-wrap: wrap; gap: 6px; }
 .flag__feat span { font-size: 12px; padding: 5px 10px; border-radius: 999px; border: 1px solid rgba(255,255,255,.2); color: rgba(255,255,255,.85); }
 .flag .pending-inline { color: var(--orange); font-size: 13px; }
-.flag .slot { background: rgba(255,255,255,.06); min-height: 320px; align-self: start; aspect-ratio: 4 / 3; position: sticky; top: 100px; }
+.flag .slot { background: rgba(255,255,255,.06); align-self: start; aspect-ratio: 16 / 9; position: sticky; top: 100px; }
+.flag .slot img { object-position: left top; }
 .flag .slot__empty { border-color: rgba(255,255,255,.2); color: rgba(255,255,255,.5); }
 .flag .slot__empty svg { filter: invert(1); }
 .btn--light { background: var(--white); color: var(--black); }
@@ -534,7 +536,6 @@ a:hover .portrait img, .tm:hover .portrait img { transform: scale(1.06); }
   .flag { grid-template-columns: 1fr; }
   .flag dl { grid-template-columns: 1fr; gap: 2px; }
   .flag dd { margin-bottom: 10px; }
-  .flag .slot { min-height: 220px; }
   .event { grid-template-columns: 1fr; gap: 14px; }
   .event__photos { grid-column: 1; grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .event__ig { grid-column: 1; }

@@ -73,8 +73,16 @@ collections:
         fields:
           - { name: title, label: Titre, widget: string }
           - { name: tag, label: Étiquette, widget: string }
-          - { name: body, label: "Texte Formation (à recopier exactement depuis l'image « download (2) »)", widget: text, required: false }
-          - { name: pendingNote, label: Message affiché tant que le texte est vide, widget: string }
+          - { name: body, label: Texte d’introduction, widget: text, required: false }
+          - name: items
+            label: Formations données
+            widget: list
+            summary: "{{fields.title}}"
+            fields:
+              - { name: title, label: Titre, widget: string }
+              - { name: date, label: Date, widget: string, required: false }
+              - { name: description, label: Description, widget: text, required: false }
+              - { name: photos, label: Photos, widget: list, required: false, field: { name: src, label: Photo, widget: image, choose_url: false } }
 
       # ---------------- CONTACT ----------------
       - name: site
@@ -83,7 +91,7 @@ collections:
         format: json
         fields:
           - { name: contactEmail, label: E-mail, widget: string, required: false }
-          - { name: contactPhone, label: Téléphone, widget: string, required: false }
+          - { name: contactPhone, label: Téléphone, widget: string, required: false, hint: "Plusieurs numéros : séparez-les par « / »" }
           - { name: address, label: Adresse, widget: string, required: false }
           - name: social
             label: Réseaux sociaux
