@@ -6,7 +6,7 @@
       "group": "Sécurité",
       "name": "Caméras de surveillance",
       "brand": "",
-      "photo": "https://d8j0ntlcm91z4.cloudfront.net/user_3A5NxumirWaUw0LAMbnIuFxQ6wT/hf_20261110_215646_76a2f08a-cd45-4b79-854b-25aba050b772.png"
+      "photo": "assets/img/uploads/accessoire-camera-surveillance.webp"
     },
     {
       "group": "Ordinateurs portables",
@@ -22,21 +22,27 @@
     },
     {
       "group": "Ordinateurs portables",
-      "name": "MacBook",
+      "name": "MacBook Air",
       "brand": "Apple",
-      "photo": "https://d8j0ntlcm91z4.cloudfront.net/user_3A5NxumirWaUw0LAMbnIuFxQ6wT/hf_20261110_215711_9779adc9-5a79-4656-a3a2-87aa3039700f.png"
+      "photo": "assets/img/uploads/accessoire-macbook-air.webp"
+    },
+    {
+      "group": "Ordinateurs portables",
+      "name": "MacBook Pro",
+      "brand": "Apple",
+      "photo": "assets/img/uploads/accessoire-macbook-pro.webp"
     },
     {
       "group": "Téléphones",
       "name": "Samsung",
       "brand": "Samsung",
-      "photo": "https://d8j0ntlcm91z4.cloudfront.net/user_3A5NxumirWaUw0LAMbnIuFxQ6wT/hf_20261110_215711_d188b524-4b63-4364-b22a-ffa7c384db88.png"
+      "photo": "assets/img/uploads/accessoire-samsung.webp"
     },
     {
       "group": "Téléphones",
       "name": "iPhone",
       "brand": "Apple",
-      "photo": "https://d8j0ntlcm91z4.cloudfront.net/user_3A5NxumirWaUw0LAMbnIuFxQ6wT/hf_20261110_215646_86c07922-c8f8-4556-a38f-5a3376650730.png"
+      "photo": "assets/img/uploads/accessoire-iphone.webp"
     },
     {
       "group": "Réseau",
