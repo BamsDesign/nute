@@ -10,18 +10,6 @@
     },
     {
       "group": "Ordinateurs portables",
-      "name": "Laptop Lenovo",
-      "brand": "Lenovo",
-      "photo": "https://d8j0ntlcm91z4.cloudfront.net/user_3A5NxumirWaUw0LAMbnIuFxQ6wT/hf_20261110_215613_32ed7d71-b193-43f4-95e1-ac27f812240b.png"
-    },
-    {
-      "group": "Ordinateurs portables",
-      "name": "Laptop HP",
-      "brand": "HP",
-      "photo": "https://d8j0ntlcm91z4.cloudfront.net/user_3A5NxumirWaUw0LAMbnIuFxQ6wT/hf_20261110_215646_b446c3fa-699e-4fb9-aad8-d421afd8fbf4.png"
-    },
-    {
-      "group": "Ordinateurs portables",
       "name": "MacBook Air",
       "brand": "Apple",
       "photo": "assets/img/uploads/accessoire-macbook-air.webp"

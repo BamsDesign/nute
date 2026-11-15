@@ -46,8 +46,8 @@ Decap CMS lets an administrator add, edit, reorder (drag and drop), activate or 
 The fixed fallback `assets/img/nute-logo-3d.png` replaces WebGL in these cases: reduced motion is on, the device has ≤ 2 cores or ≤ 2 GB of memory, data saver is on, or WebGL is not available.
 
 ## ⚠️ Pending items (not received)
-0. **Accessory photos**: AI-generated (Higgsfield) and currently loaded from Higgsfield's CDN. Run `python3 tools/localize-images.py` once to copy them into `assets/img/uploads/` (recommended before going live).
-0. **Réalisations photos**: the 24 current photos (3 per category, none for "Autres interventions") are AI-generated illustrations (Higgsfield), loaded from Higgsfield's CDN, not photos of real jobs. Replace them with real photos from `/admin → Réalisations` as they become available. `python3 tools/localize-images.py` copies them into `assets/img/uploads/`.
+0. **Accessory photos**: camera, MacBook Air, MacBook Pro, Samsung and iPhone use real product photos stored in `assets/img/uploads/`. "Câbles RJ45" still uses an AI-generated image (Higgsfield CDN); replace it from `/admin → Accessoires`.
+0. **Réalisations photos**: none published yet. Every category shows "Photo à ajouter" frames until real photos are added from `/admin → Réalisations`.
 1. **The 4 team photos.** They were not among the files received. A neutral placeholder (initials + "Portrait à intégrer") is shown for now. Add the photos from `/admin` (Portrait field) or set the path in `team.json`. 4:5 format recommended, same framing for everyone. Photos automatically get the same treatment (B/W, contrast, orange mark) so the series looks consistent.
 2. **Formation.** The section lists the trainings given (`content/formation.json → items`: title, date, description, photos). The first one is "Formation sur l’intelligence artificielle". Add new trainings from `/admin → Formation`.
 3. **Contact details.** Add them in `content/site.json`.
