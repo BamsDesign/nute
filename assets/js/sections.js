@@ -27,6 +27,7 @@ async function accessoires() {
 
 /* ---------- Réalisations with category filters ---------- */
 async function realisations() {
+  if (document.getElementById('realisations')?.hidden) return; // section masquée
   const d = await getJSON('realisations');
   const items = d.items || [];
   const cats = d.categories || [];

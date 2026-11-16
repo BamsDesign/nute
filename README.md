@@ -47,7 +47,7 @@ The fixed fallback `assets/img/nute-logo-3d.png` replaces WebGL in these cases: 
 
 ## ⚠️ Pending items (not received)
 0. **Accessory photos**: camera, MacBook Air, MacBook Pro, Samsung and iPhone use real product photos stored in `assets/img/uploads/`. "Câbles RJ45" still uses an AI-generated image (Higgsfield CDN); replace it from `/admin → Accessoires`.
-0. **Réalisations photos**: none published yet. Every category shows "Photo à ajouter" frames until real photos are added from `/admin → Réalisations`.
+0. **Réalisations**: the section is hidden for now (`hidden` on `#realisations` in `index.html`, menu link removed). To show it again, remove `hidden`, restore the "Réalisations" menu link in `index.html`, `equipe.html` and `profil.html`, and add photos from `/admin → Réalisations`.
 1. **The 4 team photos.** They were not among the files received. A neutral placeholder (initials + "Portrait à intégrer") is shown for now. Add the photos from `/admin` (Portrait field) or set the path in `team.json`. 4:5 format recommended, same framing for everyone. Photos automatically get the same treatment (B/W, contrast, orange mark) so the series looks consistent.
 2. **Formation.** The section lists the trainings given (`content/formation.json → items`: title, date, description, photos). The first one is "Formation sur l’intelligence artificielle". Add new trainings from `/admin → Formation`.
 3. **Contact details.** Add them in `content/site.json`.
