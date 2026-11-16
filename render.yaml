@@ -15,8 +15,8 @@ services:
       - { type: redirect, source: /equipe/*, destination: /equipe.html }
       - { type: redirect, source: /services, destination: /#services }
       - { type: redirect, source: /services/*, destination: /#services }
-      - { type: redirect, source: /realisations, destination: /#realisations }
-      - { type: redirect, source: /realisations/*, destination: /#realisations }
+      - { type: redirect, source: /realisations, destination: / }
+      - { type: redirect, source: /realisations/*, destination: / }
       - { type: redirect, source: /interventions, destination: /#lieux }
       - { type: redirect, source: /interventions/*, destination: /#lieux }
       - { type: redirect, source: /activites, destination: /#evenements }
