@@ -18,8 +18,8 @@ async function accessoires() {
   const d = await getJSON('accessoires');
   const intro = document.querySelector('[data-acc-intro]');
   if (intro) intro.textContent = d.intro || '';
-  document.getElementById('accGrid').innerHTML = (d.items || []).map((it, i) => `
-    <article class="acc${i === 0 ? ' acc--wide' : ''}" data-reveal>
+  document.getElementById('accGrid').innerHTML = (d.items || []).map(it => `
+    <article class="acc" data-reveal>
       ${slot(it.photo, it.name, `Photo ${it.name}`)}
       <div class="acc__meta"><span class="acc__name">${esc(it.name)}</span><span class="eyebrow">${esc(it.group)}</span></div>
     </article>`).join('');
